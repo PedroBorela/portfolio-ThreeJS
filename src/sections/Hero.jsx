@@ -11,7 +11,7 @@ import ReactLogo from "../components/ReactLogo";
 import Cube from "../components/Cube";
 import Rings from "../components/Rings";
 import HeroCamera from "../components/HeroCamera";
-import Button from "../components/Button";
+import Button from "../components/Button"; 
 
 const Hero = () => {
     // const controls = useControls('HackerRoom', {
