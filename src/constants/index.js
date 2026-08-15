@@ -225,8 +225,8 @@ export const workExperiences = [
     pos: 'Desenvolvimento Full-Stack',
     duration: '2026 até hoje',
     title:
-      'Desenvolvo sistemas internos de pesquisa e analytics, além de sites e landing pages para clientes de e-commerce e marketplaces.',
-    icon: '/assets/logos/origenow.svg',
+      'Desenvolvo sistemas internos, integrações de APIs e webhooks, além de sites e landing pages para clientes de e-commerce e marketplaces.',
+    icon: '/assets/logos/origenow.webp',
     animation: 'victory',
   },
   {
@@ -236,7 +236,7 @@ export const workExperiences = [
     duration: '2024 até hoje',
     title:
       'Atuo no marketing da empresa e desenvolvo um sistema interno para organizar pedidos, estoque e entregas.',
-    icon: '/assets/logos/natureza-em-flores.svg',
+    icon: '/assets/logos/natureza-em-flores.png',
     animation: 'clapping',
   },
   {
@@ -245,8 +245,8 @@ export const workExperiences = [
     pos: 'Sistemas de Informação e iniciação científica',
     duration: '2023 até hoje',
     title:
-      'Sou graduando em Sistemas de Informação e bolsista de iniciação científica. Pesquiso a geração de cenários Gherkin com modelos de linguagem, participei da OBI no nível sênior e obtive o 3º lugar em Extensão no V ENEPE.',
-    icon: '/assets/tech/python.svg',
+      'Sou graduando em Sistemas de Informação e bolsista de iniciação científica. Participei de pesquisas sobre jogos digitais aplicados ao ensino de inglês e do desenvolvimento de uma plataforma de realidade virtual, apresentada em Salvador. Na disciplina de Engenharia de Software III, desenvolvi um projeto sobre geração de cenários Gherkin com modelos de linguagem. Também participei da OBI no nível sênior e obtive o 3º lugar em Extensão no V ENEPE.',
+    icon: '/assets/logos/if-sudeste-mg.svg',
     animation: 'salute',
   },
 ];

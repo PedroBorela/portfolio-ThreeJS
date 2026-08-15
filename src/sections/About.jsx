@@ -20,7 +20,7 @@ const About = () => {
                         <img src="/assets/grid1.png" alt="grid 1" className="w-full sm:h-[276px] h-fit object-contain" />
                         <div>
                             <p className="grid-headtext">Desenvolvimento full-stack</p>
-                            <p className="grid-subtext">Atuo na Origenow no desenvolvimento de sistemas de pesquisa, analytics e páginas para empresas de e-commerce e marketplaces. Também desenvolvo projetos digitais para empresas de Manhuaçu.</p>
+                            <p className="grid-subtext">Na Origenow, desenvolvo sistemas internos, integrações de APIs e webhooks para conectar ferramentas de operação, comunicação e mídia. Também desenvolvo sites e landing pages para empresas de e-commerce e marketplaces.</p>
                         </div>
                     </div>
                 </div>
@@ -53,7 +53,7 @@ const About = () => {
                                 Manhuaçu, Minas Gerais
                             </p>
                             <p className="grid-subtext">
-                                Atuo presencialmente em Manhuaçu e de forma remota em outros projetos. Meu fuso horário é GMT-3.
+                                Atuo presencialmente em Manhuaçu e de forma remota em outros projetos.
                             </p>
                             <a href="#contact">
                                 <Button name="Entrar em contato" isBeam containerClass="w-full mt-10" />
@@ -68,7 +68,7 @@ const About = () => {
                         <div>
                             <p className="grid-headtext">Trabalho e pesquisa</p>
                             <p className="grid-subtext">
-                                Desenvolvo sistemas internos, landing pages e integrações para e-commerce. Na iniciação científica, pesquiso o uso de modelos de linguagem na geração de cenários Gherkin.
+                                Durante o curso de Sistemas de Informação, participei de pesquisas sobre jogos digitais aplicados ao ensino de inglês e do desenvolvimento de uma plataforma de realidade virtual, apresentada em Salvador. Na disciplina de Engenharia de Software III, desenvolvi um projeto sobre o uso de modelos de linguagem na geração de cenários Gherkin.
                             </p>
                         </div>
                     </div>
