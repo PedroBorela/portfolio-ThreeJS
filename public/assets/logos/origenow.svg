@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  <defs>
+    <linearGradient id="origenow" x1="4" y1="44" x2="44" y2="4" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#3D0992" />
+      <stop offset="1" stop-color="#A855F7" />
+    </linearGradient>
+  </defs>
+  <rect x="5" y="30" width="7" height="13" rx="3.5" fill="url(#origenow)" />
+  <rect x="17" y="23" width="7" height="20" rx="3.5" fill="url(#origenow)" />
+  <rect x="29" y="15" width="7" height="28" rx="3.5" fill="url(#origenow)" />
+  <path
+    d="M8.5 24 20.5 15 32.5 19 43 6.5"
+    stroke="url(#origenow)"
+    stroke-width="4"
+    stroke-linecap="round"
+    stroke-linejoin="round" />
+  <path
+    d="M34 5.5h9.5V15"
+    stroke="url(#origenow)"
+    stroke-width="4"
+    stroke-linecap="round"
+    stroke-linejoin="round" />
+</svg>

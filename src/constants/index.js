@@ -1,288 +1,252 @@
 export const navLinks = [
-    {
-      id: 1,
-      name: 'Home',
-      href: '#home',
+  {
+    id: 1,
+    name: 'Início',
+    href: '#home',
+  },
+  {
+    id: 2,
+    name: 'Sobre',
+    href: '#about',
+  },
+  {
+    id: 3,
+    name: 'Projetos',
+    href: '#projects',
+  },
+  {
+    id: 4,
+    name: 'Stack',
+    href: '#stack',
+  },
+  {
+    id: 5,
+    name: 'Experiência',
+    href: '#work',
+  },
+  {
+    id: 6,
+    name: 'Contato',
+    href: '#contact',
+  },
+];
+
+// Atalhos de ícones para reaproveitar nas tags dos projetos
+const tech = {
+  react: { name: 'React', path: '/assets/tech/react.svg' },
+  next: { name: 'Next.js', path: '/assets/tech/nextdotjs.svg' },
+  ts: { name: 'TypeScript', path: '/assets/tech/typescript.svg' },
+  js: { name: 'JavaScript', path: '/assets/tech/javascript.svg' },
+  tailwind: { name: 'TailwindCSS', path: '/assets/tech/tailwindcss.svg' },
+  node: { name: 'Node.js', path: '/assets/tech/nodedotjs.svg' },
+  express: { name: 'Express', path: '/assets/tech/express.svg' },
+  supabase: { name: 'Supabase', path: '/assets/tech/supabase.svg' },
+  postgres: { name: 'PostgreSQL', path: '/assets/tech/postgresql.svg' },
+  vite: { name: 'Vite', path: '/assets/tech/vite.svg' },
+  gsap: { name: 'GSAP', path: '/assets/tech/greensock.svg' },
+  three: { name: 'Three.js', path: '/assets/tech/threedotjs.svg' },
+  python: { name: 'Python', path: '/assets/tech/python.svg' },
+  cloudflare: { name: 'Cloudflare', path: '/assets/tech/cloudflare.svg' },
+  vercel: { name: 'Vercel', path: '/assets/tech/vercel.svg' },
+  actions: { name: 'GitHub Actions', path: '/assets/tech/githubactions.svg' },
+  shadcn: { name: 'shadcn/ui', path: '/assets/tech/shadcnui.svg' },
+  figma: { name: 'Figma', path: '/assets/tech/figma.svg' },
+};
+
+const withIds = (items) => items.map((item, index) => ({ id: index + 1, ...item }));
+
+export const myProjects = [
+  {
+    title: 'Trilha Fashion: programa oficial TikTok Shop',
+    desc: 'Landing page do programa oficial de aceleração do TikTok Shop para sellers de moda.',
+    subdesc:
+      'Apresenta as etapas do programa, conteúdos, calendário de encontros e acesso aos grupos de WhatsApp por região.',
+    href: 'https://trilhafashion.com.br',
+    texture: '/textures/project/trilhafashion.png',
+    logo: '/assets/logos/trilhafashion.svg',
+    logoStyle: {
+      backgroundColor: '#2A1016',
+      border: '0.2px solid #45151F',
+      boxShadow: '0px 0px 60px 0px #FE2C554D',
     },
-    {
-      id: 2,
-      name: 'Sobre',
-      href: '#about',
+    spotlight: '/assets/spotlight1.png',
+    tags: withIds([tech.next, tech.react, tech.tailwind, tech.vercel]),
+  },
+  {
+    title: 'Consulta em Massa TTS da Origenow',
+    desc: 'Sistema interno de pesquisa e analytics para marketplaces, usado pelo time de inteligência comercial da Origenow.',
+    subdesc:
+      'Processa consultas em lote, controla novas tentativas, normaliza resultados e exporta relatórios.',
+    href: 'https://analytics.origenow.com.br',
+    texture: '/textures/project/consulta-tts.png',
+    logo: '/assets/logos/consulta-tts.svg',
+    logoStyle: {
+      backgroundColor: '#141433',
+      border: '0.2px solid #1F1F52',
+      boxShadow: '0px 0px 60px 0px #6366F14D',
     },
-    {
-      id: 3,
-      name: 'Trabalho',
-      href: '#work',
+    spotlight: '/assets/spotlight2.png',
+    tags: withIds([tech.next, tech.node, tech.postgres, tech.tailwind]),
+  },
+  {
+    title: 'A Constrular: institucional e catálogo',
+    desc: 'Site institucional e catálogo de uma distribuidora de materiais de construção de Manhuaçu, com seis unidades na região.',
+    subdesc:
+      'Reúne produtos por categoria, páginas das unidades, rotas, telefones e solicitação de cotação pelo WhatsApp.',
+    href: 'https://aconstrular.com.br',
+    texture: '/textures/project/constrular.png',
+    logo: '/assets/logos/constrular.svg',
+    logoStyle: {
+      backgroundColor: '#2A1D08',
+      border: '0.2px solid #45300D',
+      boxShadow: '0px 0px 60px 0px #F59E0B4D',
     },
-    {
-      id: 4,
-      name: 'Contato',
-      href: '#contact',
+    spotlight: '/assets/spotlight3.png',
+    tags: withIds([tech.next, tech.react, tech.tailwind, tech.vercel]),
+  },
+  {
+    title: 'ContMinas: contabilidade para e-commerce',
+    desc: 'Site de uma contabilidade especializada em vendedores da Amazon e do Mercado Livre.',
+    subdesc:
+      'Apresenta serviços, depoimentos e formulário de diagnóstico, com trabalho de SEO técnico e performance.',
+    href: 'https://soucontminas.com.br',
+    texture: '/textures/project/contminas.png',
+    logo: '/assets/logos/contminas.svg',
+    logoStyle: {
+      backgroundColor: '#0C2620',
+      border: '0.2px solid #133D33',
+      boxShadow: '0px 0px 60px 0px #10B9814D',
     },
-  ];
-  
-  export const clientReviews = [
-    {
-      id: 1,
-      name: 'Emily Johnson',
-      position: 'Marketing Director at GreenLeaf',
-      img: 'assets/review1.png',
-      review:
-        'Working with Adrian was a fantastic experience. He transformed our outdated website into a modern, user-friendly platform. His attention to detail and commitment to quality are unmatched. Highly recommend him for any web dev projects.',
+    spotlight: '/assets/spotlight4.png',
+    tags: withIds([tech.next, tech.react, tech.tailwind, tech.vercel]),
+  },
+  {
+    title: 'LisoControl: finanças para universitários',
+    desc: 'Aplicação de gestão financeira para universitários, com controle de gastos, cartões, parcelas e limites por categoria.',
+    subdesc:
+      'Inclui despesas recorrentes, geração de parcelas, relatórios e exportação em CSV. Utiliza React, TypeScript e Supabase com Row Level Security.',
+    href: 'https://projetointerdisciplinar-production.up.railway.app/',
+    texture: '/textures/project/lisocontrol-site.png',
+    logo: '/assets/logos/lisocontrol.svg',
+    logoStyle: {
+      backgroundColor: '#0D2818',
+      border: '0.2px solid #144026',
+      boxShadow: '0px 0px 60px 0px #22C55E4D',
     },
-    {
-      id: 2,
-      name: 'Mark Rogers',
-      position: 'Founder of TechGear Shop',
-      img: 'assets/review2.png',
-      review:
-        'Adrian’s expertise in web development is truly impressive. He delivered a robust and scalable solution for our e-commerce site, and our online sales have significantly increased since the launch. He’s a true professional! Fantastic work.',
+    spotlight: '/assets/spotlight5.png',
+    tags: withIds([tech.react, tech.ts, tech.supabase, tech.vite]),
+  },
+  {
+    title: 'Memória Sineira MG: acervo digital',
+    desc: 'Acervo digital sobre sinos, toques e o ofício de sineiro em Ouro Preto e Mariana, criado para uma pesquisa de mestrado da UFV.',
+    subdesc:
+      'Reúne documentos, paisagens sonoras, fotografias e mapas gerados com dados geográficos do IBGE.',
+    href: 'https://memoria-sineira-mg-production.up.railway.app/',
+    texture: '/textures/project/memoria-sineira-site.png',
+    logo: '/assets/logos/memoria-sineira.svg',
+    logoStyle: {
+      backgroundColor: '#2A1B0C',
+      border: '0.2px solid #452D13',
+      boxShadow: '0px 0px 60px 0px #CD7F324D',
     },
-    {
-      id: 3,
-      name: 'John Dohsas',
-      position: 'Project Manager at UrbanTech ',
-      img: 'assets/review3.png',
-      review:
-        'I can’t say enough good things about Adrian. He was able to take our complex project requirements and turn them into a seamless, functional website. His problem-solving abilities are outstanding.',
+    spotlight: '/assets/spotlight1.png',
+    tags: withIds([tech.next, tech.ts, tech.cloudflare, tech.tailwind]),
+  },
+  {
+    title: 'CoffeaWiki: catálogo de cultivares de café',
+    desc: 'Catálogo de cultivares de Coffea arabica para consulta por produtores, agrônomos e estudantes.',
+    subdesc:
+      'Organiza informações sobre origem, produtividade, porte, resistência a doenças e condições de cultivo.',
+    href: 'https://coffea-wiki.vercel.app',
+    texture: '/textures/project/coffeawiki.png',
+    logo: '/assets/logos/coffeawiki.svg',
+    logoStyle: {
+      backgroundColor: '#2A1E10',
+      border: '0.2px solid #45311A',
+      boxShadow: '0px 0px 60px 0px #C0873F4D',
     },
-    {
-      id: 4,
-      name: 'Ether Smith',
-      position: 'CEO of BrightStar Enterprises',
-      img: 'assets/review4.png',
-      review:
-        'Adrian was a pleasure to work with. He understood our requirements perfectly and delivered a website that exceeded our expectations. His skills in both frontend backend dev are top-notch.',
+    spotlight: '/assets/spotlight2.png',
+    tags: withIds([tech.react, tech.vite, tech.tailwind, tech.js]),
+  },
+  {
+    title: 'GSAP Motion Lab',
+    desc: 'Projeto de estudos e testes de animações para interfaces web.',
+    subdesc:
+      'Inclui exemplos com ScrollTrigger, timelines, transições e testes de desempenho em telas menores.',
+    href: 'https://curso-gsap.vercel.app/',
+    texture: '/textures/project/gsap-lab-site.png',
+    logo: '/assets/logos/gsap-lab.svg',
+    logoStyle: {
+      backgroundColor: '#1B2607',
+      border: '0.2px solid #2C3D0C',
+      boxShadow: '0px 0px 60px 0px #88CE024D',
     },
-  ];
-  
-  export const myProjects = [
-    {
-      title: 'Podcastr - AI Podcast Platform',
-      desc: 'Podcastr is a revolutionary Software-as-a-Service platform that transforms the way podcasts are created. With advanced AI-powered features like text-to-multiple-voices functionality, it allows creators to generate diverse voiceovers from a single text input.',
-      subdesc:
-        'Built as a unique Software-as-a-Service app with Next.js 14, Tailwind CSS, TypeScript, Framer Motion and Convex, Podcastr is designed for optimal performance and scalability.',
-      href: 'https://www.youtube.com/watch?v=zfAb95tJvZQ',
-      texture: '/textures/project/project1.mp4',
-      logo: '/assets/project-logo1.png',
-      logoStyle: {
-        backgroundColor: '#2A1816',
-        border: '0.2px solid #36201D',
-        boxShadow: '0px 0px 60px 0px #AA3C304D',
-      },
-      spotlight: '/assets/spotlight1.png',
-      tags: [
-        {
-          id: 1,
-          name: 'React.js',
-          path: '/assets/react.svg',
-        },
-        {
-          id: 2,
-          name: 'TailwindCSS',
-          path: 'assets/tailwindcss.png',
-        },
-        {
-          id: 3,
-          name: 'TypeScript',
-          path: '/assets/typescript.png',
-        },
-        {
-          id: 4,
-          name: 'Framer Motion',
-          path: '/assets/framer.png',
-        },
-      ],
-    },
-    {
-      title: 'LiveDoc - Real-Time Google Docs Clone',
-      desc: 'LiveDoc is a powerful collaborative app that elevates the capabilities of real-time document editing. As an enhanced version of Google Docs, It supports millions of collaborators simultaneously, ensuring that every change is captured instantly and accurately.',
-      subdesc:
-        'With LiveDoc, users can experience the future of collaboration, where multiple contributors work together in real time without any lag, by using Next.js and Liveblocks newest features.',
-      href: 'https://www.youtube.com/watch?v=y5vE8y_f_OM',
-      texture: '/textures/project/project2.mp4',
-      logo: '/assets/project-logo2.png',
-      logoStyle: {
-        backgroundColor: '#13202F',
-        border: '0.2px solid #17293E',
-        boxShadow: '0px 0px 60px 0px #2F6DB54D',
-      },
-      spotlight: '/assets/spotlight2.png',
-      tags: [
-        {
-          id: 1,
-          name: 'React.js',
-          path: '/assets/react.svg',
-        },
-        {
-          id: 2,
-          name: 'TailwindCSS',
-          path: 'assets/tailwindcss.png',
-        },
-        {
-          id: 3,
-          name: 'TypeScript',
-          path: '/assets/typescript.png',
-        },
-        {
-          id: 4,
-          name: 'Framer Motion',
-          path: '/assets/framer.png',
-        },
-      ],
-    },
-    {
-      title: 'CarePulse - Health Management System',
-      desc: 'An innovative healthcare platform designed to streamline essential medical processes. It simplifies patient registration, appointment scheduling, and medical record management, providing a seamless experience for both healthcare providers and patients.',
-      subdesc:
-        'With a focus on efficiency, CarePulse integrantes complex forms and SMS notifications, by using Next.js, Appwrite, Twillio and Sentry that enhance operational workflows.',
-      href: 'https://www.youtube.com/watch?v=lEflo_sc82g',
-      texture: '/textures/project/project3.mp4',
-      logo: '/assets/project-logo3.png',
-      logoStyle: {
-        backgroundColor: '#60f5a1',
-        background:
-          'linear-gradient(0deg, #60F5A150, #60F5A150), linear-gradient(180deg, rgba(255, 255, 255, 0.9) 0%, rgba(208, 213, 221, 0.8) 100%)',
-        border: '0.2px solid rgba(208, 213, 221, 1)',
-        boxShadow: '0px 0px 60px 0px rgba(35, 131, 96, 0.3)',
-      },
-      spotlight: '/assets/spotlight3.png',
-      tags: [
-        {
-          id: 1,
-          name: 'React.js',
-          path: '/assets/react.svg',
-        },
-        {
-          id: 2,
-          name: 'TailwindCSS',
-          path: 'assets/tailwindcss.png',
-        },
-        {
-          id: 3,
-          name: 'TypeScript',
-          path: '/assets/typescript.png',
-        },
-        {
-          id: 4,
-          name: 'Framer Motion',
-          path: '/assets/framer.png',
-        },
-      ],
-    },
-    {
-      title: 'Horizon - Online Banking Platform',
-      desc: 'Horizon is a comprehensive online banking platform that offers users a centralized finance management dashboard. It allows users to connect multiple bank accounts, monitor real-time transactions, and seamlessly transfer money to other users.',
-      subdesc:
-        'Built with Next.js 14 Appwrite, Dwolla and Plaid, Horizon ensures a smooth and secure banking experience, tailored to meet the needs of modern consumers.',
-      href: 'https://www.youtube.com/watch?v=PuOVqP_cjkE',
-      texture: '/textures/project/project4.mp4',
-      logo: '/assets/project-logo4.png',
-      logoStyle: {
-        backgroundColor: '#0E1F38',
-        border: '0.2px solid #0E2D58',
-        boxShadow: '0px 0px 60px 0px #2F67B64D',
-      },
-      spotlight: '/assets/spotlight4.png',
-      tags: [
-        {
-          id: 1,
-          name: 'React.js',
-          path: '/assets/react.svg',
-        },
-        {
-          id: 2,
-          name: 'TailwindCSS',
-          path: 'assets/tailwindcss.png',
-        },
-        {
-          id: 3,
-          name: 'TypeScript',
-          path: '/assets/typescript.png',
-        },
-        {
-          id: 4,
-          name: 'Framer Motion',
-          path: '/assets/framer.png',
-        },
-      ],
-    },
-    {
-      title: 'Imaginify - AI Photo Manipulation App',
-      desc: 'Imaginify is a groundbreaking Software-as-a-Service application that empowers users to create stunning photo manipulations using AI technology. With features like AI-driven image editing, a payments system, and a credits-based model.',
-      subdesc:
-        'Built with Next.js 14, Cloudinary AI, Clerk, and Stripe, Imaginify combines cutting-edge technology with a user-centric approach. It can be turned into a side income or even a full-fledged business.',
-      href: 'https://www.youtube.com/watch?v=Ahwoks_dawU',
-      texture: '/textures/project/project5.mp4',
-      logo: '/assets/project-logo5.png',
-      logoStyle: {
-        backgroundColor: '#1C1A43',
-        border: '0.2px solid #252262',
-        boxShadow: '0px 0px 60px 0px #635BFF4D',
-      },
-      spotlight: '/assets/spotlight5.png',
-      tags: [
-        {
-          id: 1,
-          name: 'React.js',
-          path: '/assets/react.svg',
-        },
-        {
-          id: 2,
-          name: 'TailwindCSS',
-          path: 'assets/tailwindcss.png',
-        },
-        {
-          id: 3,
-          name: 'TypeScript',
-          path: '/assets/typescript.png',
-        },
-        {
-          id: 4,
-          name: 'Framer Motion',
-          path: '/assets/framer.png',
-        },
-      ],
-    },
-  ];
-  
-  export const calculateSizes = (isSmall, isMobile, isTablet) => {
-    return {
-      deskScale: isSmall ? 0.05 : isMobile ? 0.06 : 0.065,
-      deskPosition: isMobile ? [0.5, -4.5, 0] : [0.25, -5.8, 0],
-      cubePosition: isSmall ? [6, -5, 0] : isMobile ? [5, -5, 0] : isTablet ? [8, -5, 0] : [11, -5.5, 0],
-      reactLogoPosition: isSmall ? [3, 4, 0] : isMobile ? [5, 3, 0] : isTablet ? [8, 2, 0] : [16, 3, 0],
-      ringPosition: isSmall ? [-5, 7, 0] : isMobile ? [-14, 5, 0] : isTablet ? [-16, 4, 0] : [-24, 11, 0],
-      targetPosition: isSmall ? [-5, -10, -10] : isMobile ? [-9, -10, -10] : isTablet ? [-11, -7, -10] : [-13, -13, -10],
-    };
+    spotlight: '/assets/spotlight3.png',
+    tags: withIds([tech.gsap, tech.js, tech.three, tech.vite]),
+  },
+];
+
+export const techStack = [
+  {
+    id: 1,
+    title: 'Front-end',
+    description: 'Desenvolvimento de interfaces e animações web.',
+    items: [tech.react, tech.next, tech.ts, tech.js, tech.tailwind, tech.gsap, tech.three, tech.shadcn],
+  },
+  {
+    id: 2,
+    title: 'Back-end & dados',
+    description: 'APIs, bancos de dados e integrações entre sistemas.',
+    items: [tech.node, tech.express, tech.postgres, tech.supabase, tech.python],
+  },
+  {
+    id: 3,
+    title: 'Build & deploy',
+    description: 'Ferramentas de desenvolvimento, versionamento e deploy.',
+    items: [tech.vite, tech.vercel, tech.cloudflare, tech.actions, tech.figma],
+  },
+];
+
+export const calculateSizes = (isSmall, isMobile, isTablet) => {
+  return {
+    deskScale: isSmall ? 0.05 : isMobile ? 0.06 : 0.065,
+    deskPosition: isMobile ? [0.5, -4.5, 0] : [0.25, -5.8, 0],
+    cubePosition: isSmall ? [6, -5, 0] : isMobile ? [5, -5, 0] : isTablet ? [8, -5, 0] : [11, -5.5, 0],
+    reactLogoPosition: isSmall ? [3, 4, 0] : isMobile ? [5, 3, 0] : isTablet ? [8, 2, 0] : [16, 3, 0],
+    ringPosition: isSmall ? [-5, 7, 0] : isMobile ? [-14, 5, 0] : isTablet ? [-16, 4, 0] : [-24, 11, 0],
+    targetPosition: isSmall ? [-5, -10, -10] : isMobile ? [-9, -10, -10] : isTablet ? [-11, -7, -10] : [-13, -13, -10],
   };
-  
-  export const workExperiences = [
-    {
-      id: 1,
-      name: 'Framer',
-      pos: 'Lead Web Developer',
-      duration: '2022 - Present',
-      title: "Framer serves as my go-to tool for creating interactive prototypes. I use it to bring designs to  life, allowing stakeholders to experience the user flow and interactions before development.",
-      icon: '/assets/framer.svg',
-      animation: 'victory',
-    },
-    {
-      id: 2,
-      name: 'Figma',
-      pos: 'Web Developer',
-      duration: '2020 - 2022',
-      title: "Figma is my collaborative design platform of choice. I utilize it to work seamlessly with team members and clients, facilitating real-time feedback and design iterations. Its cloud-based.",
-      icon: '/assets/figma.svg',
-      animation: 'clapping',
-    },
-    {
-      id: 3,
-      name: 'Notion',
-      pos: 'Junior Web Developer',
-      duration: '2019 - 2020',
-      title: "Notion helps me keep my projects organized. I use it for project management, task tracking, and as a central hub for documentation, ensuring that everything from design notes to.",
-      icon: '/assets/notion.svg',
-      animation: 'salute',
-    },
-  ];
+};
+
+export const workExperiences = [
+  {
+    id: 1,
+    name: 'Origenow',
+    pos: 'Desenvolvimento Full-Stack',
+    duration: '2026 até hoje',
+    title:
+      'Desenvolvo sistemas internos de pesquisa e analytics, além de sites e landing pages para clientes de e-commerce e marketplaces.',
+    icon: '/assets/logos/origenow.svg',
+    animation: 'victory',
+  },
+  {
+    id: 2,
+    name: 'Natureza em Flores',
+    pos: 'Marketing e desenvolvimento de produto interno',
+    duration: '2024 até hoje',
+    title:
+      'Atuo no marketing da empresa e desenvolvo um sistema interno para organizar pedidos, estoque e entregas.',
+    icon: '/assets/logos/natureza-em-flores.svg',
+    animation: 'clapping',
+  },
+  {
+    id: 3,
+    name: 'IF Sudeste MG, Campus Manhuaçu',
+    pos: 'Sistemas de Informação e iniciação científica',
+    duration: '2023 até hoje',
+    title:
+      'Sou graduando em Sistemas de Informação e bolsista de iniciação científica. Pesquiso a geração de cenários Gherkin com modelos de linguagem, participei da OBI no nível sênior e obtive o 3º lugar em Extensão no V ENEPE.',
+    icon: '/assets/tech/python.svg',
+    animation: 'salute',
+  },
+];

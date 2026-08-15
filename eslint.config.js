@@ -5,7 +5,7 @@ import reactRefresh from 'eslint-plugin-react-refresh'
 import { ReactThreeFiber } from '@react-three/fiber'
 
 export default [
-  { ignores: ['dist'] },
+  { ignores: ['dist', 'public/draco/**'] },
   {
     files: ['**/*.{js,jsx}'],
     languageOptions: {

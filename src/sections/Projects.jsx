@@ -21,8 +21,12 @@ const Projects = () => {
         })
     }
     return (
-        <section className="c-space my-20">
-            <p className="head-text">Meu trabalho</p>
+        <section className="c-space my-20" id="projects">
+            <p className="head-text">Projetos</p>
+            <p className="text-white-600 mt-4 max-w-3xl">
+                Seleção de sistemas, sites e aplicações desenvolvidos para e-commerce, operações
+                internas, pesquisa e patrimônio cultural.
+            </p>
             <div className="grid lg:grid-cols-2 grid-cols-1 mt-12 gap-5 w-full">
                 <div className="flex flex-col gap-5 relative sm:p-10 py-10 px-5 shadow-2xl shadow-black-200">
                     <div className="absolute top-0 right-0">
@@ -44,8 +48,8 @@ const Projects = () => {
                         ))}
                         </div>
 
-                        <a className="flex items-center gap-2 cursor-pointer text-white-600" href={currentProject.href} target="_blank" rel="noreferrer">
-                            <p>Cheque o site ao vivo</p>
+                        <a className="flex items-center gap-2 cursor-pointer text-white-600 hover:text-white transition-colors" href={currentProject.href} target="_blank" rel="noreferrer">
+                            <p>{currentProject.href.includes('github.com') ? 'Ver no GitHub' : 'Ver projeto'}</p>
                             <img src="/assets/arrow-up.png" alt="seta" className="w-3 h-3" />
                         </a>
                     </div>

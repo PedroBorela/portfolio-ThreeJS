@@ -4,7 +4,7 @@ import { useAnimations, useFBX, useGLTF } from '@react-three/drei'
 
 const Developer = ({ animationName = 'idle', ...props }) => {
     const group = useRef()
-    const { nodes, materials } = useGLTF('/models/animations/developer.glb');
+    const { nodes, materials } = useGLTF('/models/animations/developer.glb', '/draco/');
     const { animations: idleAnimation } = useFBX('/models/animations/idle.fbx');
     const { animations: saluteAnimation } = useFBX('/models/animations/salute.fbx');
     const { animations: clappingAnimation } = useFBX('/models/animations/clapping.fbx');
@@ -95,7 +95,7 @@ const Developer = ({ animationName = 'idle', ...props }) => {
     )
 }
 
-useGLTF.preload('/models/animations/developer.glb')
+useGLTF.preload('/models/animations/developer.glb', '/draco/')
 useFBX.preload('/models/animations/idle.fbx');
 useFBX.preload('/models/animations/salute.fbx');
 useFBX.preload('/models/animations/clapping.fbx');

@@ -13,6 +13,11 @@ body {
   font-family: 'General Sans', sans-serif;
 }
 
+/* compensa a navbar fixa quando navega pelas âncoras */
+section[id] {
+  scroll-margin-top: 96px;
+}
+
 @layer utilities {
   .c-space {
     @apply sm:px-10 px-5;

@@ -21,7 +21,7 @@ const Contact = () => {
                 from_name: form.name,
                 to_name: 'Pedro',
                 from_email: form.email,
-                to_email: 'pborela2014@hotmail.com',
+                to_email: 'pborela2014@gmail.com',
                 message: form.message,
             },'8tUjLqLt4VhR9l7ow')
             setLoading(false);
@@ -34,7 +34,8 @@ const Contact = () => {
             });
         } catch (error) {
             setLoading(false)
-            console.log('Deu algo de errado!')
+            console.error('Falha ao enviar a mensagem:', error)
+            alert('Não consegui enviar sua mensagem. Tente de novo ou me chame no e-mail pborela2014@gmail.com')
         }
 
     }
@@ -44,13 +45,13 @@ const Contact = () => {
                 <img src="/assets/terminal.png" alt="" className="absolute inset-0 min-h-screen" />
 
                 <div className="contact-container">
-                    <h3 className="head-text">Vamos conversar</h3>
-                    <p className="text-lg text-white-600 mt-3">Caso esteja procurando construir um novo website, melhorar sua plataforma já existente ou trazer um projeto único a vida, estou aqui para ajudar</p>
+                    <h3 className="head-text">Contato</h3>
+                    <p className="text-lg text-white-600 mt-3">Entre em contato para conversar sobre desenvolvimento de sites, sistemas, integrações ou outros projetos digitais.</p>
 
                     <form ref={formRef} onSubmit={handleSubmit} className="mt-12 flex flex-col space-y-7">
                         <label className="space-y-3">
                             <span className="field-label">
-                                Nome completo
+                                Nome
                             </span>
                             <input type="text"
                                 name="name"
@@ -58,12 +59,12 @@ const Contact = () => {
                                 onChange={handleChange}
                                 required
                                 className="field-input"
-                                placeholder="ex., John Doe" />
+                                placeholder="Ex.: Maria Silva" />
                         </label>
 
                         <label className="space-y-3">
                             <span className="field-label">
-                                Email
+                                E-mail
                             </span>
                             <input type="email"
                                 name="email"
@@ -71,12 +72,12 @@ const Contact = () => {
                                 onChange={handleChange}
                                 required
                                 className="field-input"
-                                placeholder="ex., johndoe@gmail.com" />
+                                placeholder="Ex.: maria@empresa.com.br" />
                         </label>
 
                         <label className="space-y-3">
                             <span className="field-label">
-                                Sua mensagem
+                                Mensagem
                             </span>
                             <textarea
                                 name="message"
@@ -85,10 +86,10 @@ const Contact = () => {
                                 required
                                 rows={5}
                                 className="field-input"
-                                placeholder="Olá, eu estou interessado em ..." />
+                                placeholder="Descreva brevemente o seu projeto." />
                         </label>
                         <button className="field-btn " type="submit" disabled={loading}>
-                            {loading ? 'enviando...' : 'Enviar mensagem'}
+                            {loading ? 'Enviando...' : 'Enviar mensagem'}
                             <img src="/assets/arrow-up.png" alt="seta pra cima" className="field-btn_arrow" />
                         </button>
 
