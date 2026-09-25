@@ -1,8 +1,8 @@
-# Portfólio de Pedro Borela
+# Portfólio de Pedro Borela · v2
 
 Portfólio pessoal de **Pedro Borela Andrade**, desenvolvedor full-stack em Manhuaçu (MG).
-Feito com React, Three.js e TailwindCSS, com cena 3D interativa no hero e um monitor
-retrô que exibe a capa de cada projeto.
+Página única com loader, hero com uma bolha de vidro em 3D, sobre em bento, projetos em
+scroll horizontal, stack, experiência em acordeão e formulário de contato.
 
 🔗 [pedroborela.dev](https://pedroborela.dev)
 
@@ -10,76 +10,98 @@ retrô que exibe a capa de cada projeto.
 
 | Camada | Tecnologias |
 |---|---|
-| UI | React 19, TailwindCSS 3, GSAP |
-| 3D | Three.js, @react-three/fiber, @react-three/drei, react-globe.gl |
-| Build | Vite 6 |
-| Contato | EmailJS |
+| UI | React 19, TailwindCSS 3 |
+| Animação | GSAP 3 + ScrollTrigger (`@gsap/react`), Lenis (smooth scroll) |
+| 3D | Three.js, @react-three/fiber, @react-three/drei (`MeshTransmissionMaterial`) |
+| Contato | EmailJS (`@emailjs/browser`) |
+| Build e CI | Vite 6, ESLint 9, GitHub Actions |
 
-## Seções
+## Como rodar
 
-- **Início**: cena 3D com o quarto de trabalho, logo do React, anel e cubo flutuantes.
-- **Sobre**: bio, formação, globo com a localização (Manhuaçu, MG) e e-mail com copiar-em-um-clique.
-- **Projetos**: carrossel dos trabalhos que estão no ar, com a capa renderizada no monitor 3D.
-- **Stack & ferramentas**: o que uso em front-end, back-end/dados e build/deploy.
-- **Experiência**: Origenow, Natureza em Flores e formação, com o boneco 3D reagindo ao hover.
-- **Contato**: formulário funcional via EmailJS.
+Requer Node 20 ou superior.
 
-## Projetos em destaque
+```bash
+npm install
+cp .env.example .env   # preencha as chaves do EmailJS
+npm run dev            # http://localhost:5173
+npm run lint
+npm run build          # gera dist/
+npm run preview        # serve o build
+```
 
-| Projeto | O que é | Stack |
-|---|---|---|
-| [Trilha Fashion](https://trilhafashion.com.br) | Landing do programa oficial de aceleração TikTok Shop | Next.js, React, Tailwind |
-| [Consulta em Massa TTS](https://analytics.origenow.com.br) | Sistema de pesquisa e analytics de marketplace da Origenow | Next.js, Node, PostgreSQL |
-| [A Constrular](https://aconstrular.com.br) | Institucional e catálogo, 6 unidades na região de Manhuaçu | Next.js, React, Tailwind |
-| [ContMinas](https://soucontminas.com.br) | Contabilidade para e-commerce, integrada a Amazon e ML | Next.js, React, Tailwind |
-| [LisoControl](https://projetointerdisciplinar-production.up.railway.app/) | Gestão financeira para universitários | React 19, TypeScript, Supabase |
-| [Memória Sineira MG](https://memoria-sineira-mg-production.up.railway.app/) | Acervo digital do ofício de sineiro em Ouro Preto e Mariana | Next.js, Cloudflare Workers, D1 |
-| [CoffeaWiki](https://coffea-wiki.vercel.app) | Catálogo interativo de cultivares de café | React, Vite, Tailwind |
-| [GSAP Motion Lab](https://curso-gsap.vercel.app/) | Laboratório de animações web de alta performance | GSAP, Three.js |
+## Variáveis de ambiente
+
+O formulário de contato envia pelo EmailJS. As chaves ficam em `.env`, que está no
+`.gitignore`; o modelo é o `.env.example`.
+
+| Variável | Onde encontrar |
+|---|---|
+| `VITE_EMAILJS_SERVICE_ID` | EmailJS → Email Services |
+| `VITE_EMAILJS_TEMPLATE_ID` | EmailJS → Email Templates |
+| `VITE_EMAILJS_PUBLIC_KEY` | EmailJS → Account → Public Key |
+
+O template recebe `from_name`, `from_email`, `message`, `to_name` e `to_email`. Sem as
+variáveis, o site funciona normalmente e o formulário mostra a mensagem de erro ao enviar.
+
+> As variáveis `VITE_*` entram no bundle do navegador. A public key do EmailJS foi feita
+> para isso; proteja o envio com a lista de domínios permitidos e o limite de envios no
+> painel do EmailJS.
 
 ## Estrutura
 
 ```
 public/
-  assets/        ícones de interface
-  assets/tech/   ícones das tecnologias (simple-icons)
-  assets/logos/  marcas dos projetos
-  draco/         decodificador Draco self-hosted (usado pelos .glb)
-  models/        modelos 3D (.glb) e animações (.fbx)
-  textures/      texturas da cena e capas dos projetos
+  assets/            ícones, terminal.png, logos/ e tech/ (ícones das tecnologias)
+  fonts/             General Sans (woff2, servida localmente)
+  textures/project/  capas dos projetos (1600×949)
 src/
-  components/    componentes 3D e reutilizáveis
-  constants/     dados do site (projetos, stack, experiências, navegação)
-  sections/      seções da página
+  constants/portfolio.js   todo o conteúdo: projetos, stack, experiência, navegação
+  lib/gsap.js              registro dos plugins, breakpoints e helpers de animação
+  hooks/
+    useLenis.js            Lenis + ScrollTrigger pelo gsap.ticker; contexto e scrollTo
+    useMagnetic.js         efeito magnético (ref)
+    useTilt.js             tilt 3D + variáveis --mx/--my do brilho
+    useHoverBounce.js      pulo elástico de chips e ícones
+    useBrasiliaClock.js    relógio America/Sao_Paulo (um intervalo compartilhado)
+    useMediaQuery.js       matchMedia reativo
+  components/
+    ui/                    Loader, Cursor, Background, GlassCard, MagneticButton,
+                           Marquee, SectionTitle, Ping
+    three/GlassBlob.jsx    bolha de vidro (carregada sob demanda)
+  sections/                Navbar, Hero, MarqueeBand, About, Projects, OtherProjects,
+                           Stack, Experience, Contact, Footer
+  App.jsx                  composição, loader → intro, Lenis e âncoras
 ```
 
-Todo o conteúdo do site (projetos, stack e experiências) vive em
-`src/constants/index.js`. Para adicionar um projeto, basta acrescentar um objeto em
-`myProjects` e colocar a capa em `public/textures/project/`.
-
-## Rodando localmente
-
-```bash
-npm install
-npm run dev     # http://localhost:5173
-npm run build   # gera dist/
-npm run preview # serve o build
-npm run lint
-```
-
-Node 18 ou superior.
+Para adicionar um projeto, acrescente um objeto em `FEATURED` (scroll horizontal) ou
+`OTHERS` (lista) em `src/constants/portfolio.js` e coloque a capa em
+`public/textures/project/`.
 
 ## Notas técnicas
 
-- Os modelos `.glb` são comprimidos com Draco. O decodificador é servido de
-  `public/draco/` em vez do CDN do Google, que carrega mais rápido e o site não quebra
-  se o CDN estiver indisponível.
-- As capas dos projetos são imagens (`.png`) aplicadas como textura no monitor 3D.
-- O formulário de contato usa EmailJS; as chaves ficam em `src/sections/Contact.jsx`.
-  São chaves públicas de front-end, mas o ideal é migrá-las para variáveis de
-  ambiente (`import.meta.env.VITE_*`) antes de escalar o uso.
+- **Animações:** todas usam `useGSAP()` com `scope`, então são desfeitas ao desmontar.
+  Desktop e mobile são separados com `gsap.matchMedia()`. O breakpoint único é
+  `(max-width: 860px), (max-height: 719px)`; no Tailwind, o layout de desktop usa a
+  variante `wide:`.
+- **Projetos:** no desktop (≥861px de largura e ≥720px de altura) a seção fica fixa e
+  a trilha rola na horizontal; no mobile vira uma coluna com fade-up.
+- **Bolha 3D:** o `<Canvas>` é carregado com `lazy` + `Suspense` em um chunk separado.
+  Os shaders são compilados com `compileAsync` antes do primeiro frame e o render
+  pausa fora da viewport. Em telas menores que 700px a malha usa menos vértices.
+- **Acessibilidade:** com `prefers-reduced-motion: reduce` não há Lenis, loader,
+  cursor customizado nem animações contínuas, e todo o conteúdo aparece. O cursor
+  customizado só existe com `(pointer: fine)`.
+- **Dependências:** `three` fica em `0.175.x` porque o `three-stdlib` (usado pelo drei)
+  ainda importa `LuminanceFormat`, removido no three r176.
 
-## Créditos
+## Deploy
 
-Base 3D inspirada no template de portfólio da JavaScript Mastery, reescrita com
-conteúdo, estrutura de dados e projetos próprios.
+O build é estático (`dist/`) e roda em qualquer host (Vercel, Netlify, Cloudflare Pages):
+
+- comando de build: `npm run build`
+- diretório de saída: `dist`
+- variáveis: as três `VITE_EMAILJS_*` no painel do host
+
+O workflow `.github/workflows/ci.yml` roda `lint` e `build` a cada push em `master` e
+`redesign/v2` e em pull requests para `master`. Para o build do CI incluir as chaves,
+cadastre as mesmas variáveis em **Settings → Secrets and variables → Actions**.
