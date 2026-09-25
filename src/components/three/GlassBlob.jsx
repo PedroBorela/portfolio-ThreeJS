@@ -52,7 +52,8 @@ function Scene({ pop, pointer, animate, segments, onCompiled }) {
   // para a compilação do material de transmissão não travar a thread principal.
   useEffect(() => {
     let alive = true;
-    gl.compileAsync(scene, camera)
+    const compile = gl.extensions.has('KHR_parallel_shader_compile') ? gl.compileAsync(scene, camera) : Promise.resolve();
+    compile
       .catch(() => {})
       .then(() => {
         if (!alive) return;
