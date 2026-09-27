@@ -174,8 +174,8 @@ const About = () => {
           {/* Formação */}
           <div data-fade="">
             <GlassCard tilt={6} className="flex h-full flex-col gap-8 p-card">
-              <div className="h-14 w-14 rounded-2xl bg-pf-logo p-2">
-                <img src="/assets/logos/if-sudeste-mg.svg" alt="Logo do IF Sudeste MG" className="h-full w-full object-contain" />
+              <div className="h-14 w-14 rounded-2xl bg-white p-2">
+                <img src="/assets/logos/if-sudeste-mg-vertical.svg" alt="Logo do IF Sudeste MG" className="h-full w-full object-contain" />
               </div>
               <div>
                 <CardTitle>Formação e atuação técnica</CardTitle>

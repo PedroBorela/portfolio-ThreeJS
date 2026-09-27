@@ -76,7 +76,7 @@ const Experience = () => {
                   aria-controls={`exp-body-${i}`}
                   className="grid w-full grid-cols-[64px_minmax(0,1fr)_40px] items-center gap-6 px-[clamp(0px,1.2vw,16px)] py-[clamp(20px,2.4vw,28px)] text-left wide:grid-cols-[64px_minmax(0,1fr)_auto_40px]"
                 >
-                  <span data-exp-logo="" className="flex h-16 w-16 rounded-3xl bg-pf-logo p-2.5">
+                  <span data-exp-logo="" className={`flex h-16 w-16 rounded-3xl p-2.5 ${exp.logoBg ?? 'bg-pf-logo'}`}>
                     <img src={exp.icon} alt={`Logo de ${exp.name}`} loading="lazy" className="h-full w-full object-contain" />
                   </span>
                   <span className="block">
