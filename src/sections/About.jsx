@@ -7,7 +7,7 @@ import GlassCard from '../components/ui/GlassCard';
 import Ping from '../components/ui/Ping';
 
 const EMAIL = 'pborela2014@gmail.com';
-const FLOW = ['Webhook', 'API', 'PostgreSQL', 'Painel'];
+const FLOW = ['Webhook', 'API', 'Postgres', 'Painel'];
 const CHIPS = ['Iniciação científica', 'OBI · nível sênior', '3º lugar em Extensão · V ENEPE'];
 
 const Label = ({ children }) => <span className="text-sm text-pf-muted">{children}</span>;
@@ -19,6 +19,7 @@ const CardBody = ({ children, className = '' }) => (
 const About = () => {
   const rootRef = useRef(null);
   const manifestoRef = useRef(null);
+  const flowRef = useRef(null);
   const flowDotRef = useRef(null);
   const copyIconRef = useRef(null);
   const copyTimer = useRef(null);
@@ -41,14 +42,38 @@ const About = () => {
           scrollTrigger: { trigger: manifestoRef.current, start: 'top 80%', end: 'bottom 45%', scrub: true },
         });
 
-        // Fluxo Webhook → API → PostgreSQL → Painel
-        gsap.fromTo(flowDotRef.current, { left: '0%' }, { left: '100%', duration: 2.6, ease: 'power1.inOut', repeat: -1, repeatDelay: 0.3 });
-        gsap.to(gsap.utils.toArray('[data-flow-node]', root), {
-          borderColor: 'rgba(255,255,255,0.35)',
-          color: '#FFFFFF',
-          duration: 0.35,
-          stagger: { each: 0.72, repeat: -1, yoyo: true, repeatDelay: 1.8 },
+        // Fluxo Webhook → API → Postgres → Painel: o ponto vai de etapa em etapa e acende a etapa em que chega.
+        // Um timeline só, com o centro real de cada etapa (offsetLeft ignora o tilt), refeito quando o layout muda.
+        const track = flowRef.current;
+        const dot = flowDotRef.current;
+        const nodes = gsap.utils.toArray('[data-flow-node]', track);
+        let flow;
+        let raf;
+        const buildFlow = () => {
+          flow?.revert();
+          const xs = nodes.map((n) => n.offsetLeft + n.offsetWidth / 2);
+          const on = { borderColor: 'rgba(255,255,255,0.35)', color: '#FFFFFF', duration: 0.25 };
+          const off = { borderColor: '#1C1C21', color: '#AFB0B6', duration: 0.5 };
+          flow = gsap.timeline({ repeat: -1, repeatDelay: 0.3 });
+          flow.set(dot, { x: xs[0], autoAlpha: 0 }).to(nodes[0], on).to(dot, { autoAlpha: 1, duration: 0.2 }, '<');
+          for (let i = 1; i < nodes.length; i++) {
+            flow
+              .to(dot, { x: xs[i], duration: 0.8, ease: 'power1.inOut' }, '+=0.35')
+              .to(nodes[i - 1], off, '<')
+              .to(nodes[i], on, '>-0.1');
+          }
+          flow.to(dot, { autoAlpha: 0, duration: 0.3 }, '+=0.6').to(nodes[nodes.length - 1], off, '<');
+        };
+        const ro = new ResizeObserver(() => {
+          cancelAnimationFrame(raf);
+          raf = requestAnimationFrame(buildFlow);
         });
+        [track, ...nodes].forEach((el) => ro.observe(el));
+        return () => {
+          ro.disconnect();
+          cancelAnimationFrame(raf);
+          flow?.revert();
+        };
       });
       // Sem movimento: o manifesto aparece inteiro
       mm.add('(prefers-reduced-motion: reduce)', () => {
@@ -98,28 +123,29 @@ const About = () => {
                 </div>
                 <Label>Origenow · 2026 até hoje</Label>
               </div>
-              <div className="relative flex items-center justify-between gap-2">
+              <div ref={flowRef} className="relative flex items-center justify-between gap-2">
                 <div className="absolute inset-x-0 top-1/2 h-px bg-pf-border" />
                 <span
                   ref={flowDotRef}
                   aria-hidden="true"
-                  className="absolute left-0 top-1/2 -ml-1 -mt-1 h-2 w-2 rounded-full bg-pf-green shadow-[0_0_16px_#22C55E]"
+                  className="invisible absolute left-0 top-1/2 -ml-1 -mt-1 h-2 w-2 rounded-full bg-pf-green shadow-[0_0_16px_#22C55E]"
                 />
                 {FLOW.map((node) => (
                   <span
                     key={node}
                     data-flow-node=""
-                    className="relative whitespace-nowrap rounded-full border border-pf-border bg-pf-surface px-3.5 py-2 text-sm text-pf-text"
+                    className="relative whitespace-nowrap rounded-full border border-pf-border bg-pf-surface px-2.5 py-1.5 text-xs text-pf-text sm:px-3.5 sm:py-2 sm:text-sm"
                   >
                     {node}
                   </span>
                 ))}
               </div>
               <div>
-                <CardTitle>Desenvolvimento full-stack</CardTitle>
+                <CardTitle>Do webhook ao painel</CardTitle>
                 <CardBody className="max-w-[640px]">
-                  Na Origenow, desenvolvo sistemas internos, integrações de APIs e webhooks para conectar ferramentas de operação,
-                  comunicação e mídia. Também desenvolvo sites e landing pages para empresas de e-commerce e marketplaces.
+                  Como desenvolvedor full-stack, crio os sistemas internos que conectam as ferramentas de operação, comunicação e
+                  mídia da empresa: os dados chegam por webhook, passam pelas APIs, ficam no PostgreSQL e viram painéis para o time.
+                  Também desenvolvo sites e landing pages para clientes de e-commerce e marketplaces.
                 </CardBody>
               </div>
             </GlassCard>
