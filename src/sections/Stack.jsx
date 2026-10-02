@@ -8,11 +8,12 @@ import SectionTitle from '../components/ui/SectionTitle';
 const ROW_1 = [T.react, T.next, T.ts, T.js, T.tailwind, T.gsap, T.three, T.shadcn, T.node];
 const ROW_2 = [T.express, T.postgres, T.supabase, T.python, T.vite, T.vercel, T.cloudflare, T.actions, T.figma];
 
+// Sem backdrop-filter (ver .glass no index.css): são 36 pílulas andando sem parar sobre o fundo preto
 const StackPill = ({ tech, clone, bounce }) => (
   <span className="flex pr-4" aria-hidden={clone || undefined}>
     <span
       {...bounce}
-      className="blur-glass flex items-center gap-3.5 rounded-full border border-white/[0.08] bg-white/[0.04] py-4 pl-[18px] pr-[26px] shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]"
+      className="flex items-center gap-3.5 rounded-full border border-white/[0.08] bg-white/[0.04] py-4 pl-[18px] pr-[26px] shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]"
     >
       <span className="box-content flex h-10 w-10 items-center justify-center rounded-full border border-pf-border bg-pf-surface">
         <img src={tech.path} alt="" loading="lazy" className="h-5 w-5" />

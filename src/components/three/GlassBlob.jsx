@@ -31,7 +31,7 @@ function updateNormals(pos, index, normal) {
   }
 }
 
-function Scene({ pop, pointer, animate, segments, samples, onCompiled }) {
+function Scene({ pop, pointer, animate, segments, samples, onCompiled, onContextLost }) {
   const group = useRef(null);
   const blob = useRef(null);
   const ring = useRef(null);
@@ -49,6 +49,15 @@ function Scene({ pop, pointer, animate, segments, samples, onCompiled }) {
   const geometry = useMemo(() => new SphereGeometry(RADIUS, segments, segments), [segments]);
   const base = useMemo(() => geometry.attributes.position.array.slice(), [geometry]);
   useEffect(() => () => geometry.dispose(), [geometry]);
+
+  // Contexto derrubado pelo navegador. Sai no cleanup porque o R3F força a perda do contexto
+  // ao desmontar o Canvas, e isso não pode virar o fallback.
+  useEffect(() => {
+    const canvas = gl.domElement;
+    const lost = () => onContextLost?.();
+    canvas.addEventListener('webglcontextlost', lost);
+    return () => canvas.removeEventListener('webglcontextlost', lost);
+  }, [gl, onContextLost]);
 
   // Compila os shaders em paralelo (KHR_parallel_shader_compile) antes do primeiro frame,
   // para a compilação do material de transmissão não travar a thread principal.
@@ -199,6 +208,25 @@ const GlassBlob = ({ revealed, reduceMotion = false, onContextLost }) => {
     return () => io.disconnect();
   }, []);
 
+  // No celular, pausar não basta: o contexto WebGL segue ocupando a memória de GPU que o Safari e o
+  // Chrome do iPhone dividem entre as abas. Longe do hero o Canvas desmonta (o R3F libera o contexto)
+  // e volta uma tela antes de reaparecer.
+  const [mounted, setMounted] = useState(true);
+  useEffect(() => {
+    if (!lowPower) return undefined;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        // Altura 0 é o Suspense escondendo a bolha enquanto o HDR carrega, não o scroll
+        if (!entry.boundingClientRect.height) return;
+        setMounted(entry.isIntersecting);
+        if (!entry.isIntersecting) setCompiled(false);
+      },
+      { rootMargin: '100% 0px' },
+    );
+    io.observe(hostRef.current);
+    return () => io.disconnect();
+  }, [lowPower]);
+
   useGSAP(
     () => {
       if (revealed && !reduceMotion) gsap.to(pop, { v: 1, duration: 2.2, ease: 'elastic.out(1,0.45)' });
@@ -210,27 +238,29 @@ const GlassBlob = ({ revealed, reduceMotion = false, onContextLost }) => {
 
   return (
     <div ref={hostRef} className="absolute inset-0">
-      <Canvas
-        frameloop={frameloop}
-        dpr={lowPower ? [1, 1.5] : [1, 2]}
-        camera={{ fov: 32, position: [0, 0, 9], near: 0.1, far: 100 }}
-        gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
-        onCreated={({ gl }) => {
-          gl.toneMappingExposure = 1.1;
-          gl.domElement.addEventListener('webglcontextlost', () => onContextLost?.(), { once: true });
-        }}
-        style={{ pointerEvents: 'none' }}
-        aria-hidden="true"
-      >
-        <Scene
-          pop={pop}
-          pointer={pointer}
-          animate={!reduceMotion}
-          segments={lowPower ? 64 : 128}
-          samples={lowPower ? 4 : 6}
-          onCompiled={onCompiled}
-        />
-      </Canvas>
+      {mounted && (
+        <Canvas
+          frameloop={frameloop}
+          dpr={lowPower ? [1, 1.5] : [1, 2]}
+          camera={{ fov: 32, position: [0, 0, 9], near: 0.1, far: 100 }}
+          gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
+          onCreated={({ gl }) => {
+            gl.toneMappingExposure = 1.1;
+          }}
+          style={{ pointerEvents: 'none' }}
+          aria-hidden="true"
+        >
+          <Scene
+            pop={pop}
+            pointer={pointer}
+            animate={!reduceMotion}
+            segments={lowPower ? 64 : 128}
+            samples={lowPower ? 4 : 6}
+            onCompiled={onCompiled}
+            onContextLost={onContextLost}
+          />
+        </Canvas>
+      )}
     </div>
   );
 };

@@ -202,7 +202,7 @@ const Contact = ({
                   rel="noreferrer"
                   aria-label={social.label}
                   strength={0.45}
-                  className="blur-glass box-content flex h-[52px] w-[52px] items-center justify-center rounded-full border border-white/10 bg-white/5"
+                  className="box-content flex h-[52px] w-[52px] items-center justify-center rounded-full border border-white/10 bg-white/5"
                 >
                   <img src={social.icon} alt="" className={social.iconClass} />
                 </MagneticButton>
@@ -215,7 +215,7 @@ const Contact = ({
           ref={formRef}
           onSubmit={onSubmit}
           data-fade=""
-          className="glass relative flex flex-col gap-7 p-[clamp(24px,3vw,40px)] backdrop-blur-[24px] backdrop-saturate-[1.4]"
+          className="glass relative flex flex-col gap-7 p-[clamp(24px,3vw,40px)]"
         >
           <Field label="Nome" name="name" type="text" placeholder="Ex.: Maria Silva" autoComplete="name" required />
           <div className="grid grid-cols-1 gap-7 wide:grid-cols-2">

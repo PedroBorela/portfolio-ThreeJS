@@ -15,7 +15,6 @@ const ProjectCard = ({ project, index }) => {
     <article data-card="" className="project-card relative flex-none">
       <div
         aria-hidden="true"
-        data-glow=""
         className="pointer-events-none absolute inset-x-[12%] top-[18%] h-[55%] opacity-20 blur-[90px]"
         style={{ background: project.accent }}
       />
@@ -25,7 +24,7 @@ const ProjectCard = ({ project, index }) => {
         target="_blank"
         rel="noreferrer"
         data-cursor="Visitar"
-        className="relative block rounded-lg border border-white/[0.09] bg-white/[0.04] p-2.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_40px_80px_-30px_rgba(0,0,0,0.8)] backdrop-blur-[24px] backdrop-saturate-150"
+        className="relative block rounded-lg border border-white/[0.09] bg-white/[0.04] p-2.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_40px_80px_-30px_rgba(0,0,0,0.8)]"
       >
         <div className="flex items-center gap-2 px-1 pb-2.5 pt-0.5" aria-hidden="true">
           <span className="h-2.5 w-2.5 rounded-full bg-pf-muted-2" />
@@ -66,7 +65,7 @@ const ProjectCard = ({ project, index }) => {
                 key={tag.name}
                 {...bounce}
                 title={tag.name}
-                className="flex h-10 w-10 items-center justify-center rounded-md bg-[rgba(245,245,245,0.08)] backdrop-blur-[16px]"
+                className="flex h-10 w-10 items-center justify-center rounded-md bg-[rgba(245,245,245,0.08)]"
               >
                 <img src={tag.path} alt={tag.name} className="h-5 w-5" loading="lazy" />
               </span>
