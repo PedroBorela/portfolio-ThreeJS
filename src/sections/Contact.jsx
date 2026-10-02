@@ -116,6 +116,8 @@ const Contact = ({
       return;
     }
 
+    const name = String(data.get('name') ?? '').trim();
+    const email = String(data.get('email') ?? '').trim();
     const phone = String(data.get('phone') ?? '').trim() || 'Não informado';
     const chosen = serviceName(data.get('service'));
     const message = String(data.get('message') ?? '').trim();
@@ -129,14 +131,19 @@ const Contact = ({
         EMAILJS.serviceId,
         EMAILJS.templateId,
         {
-          from_name: data.get('name'),
-          from_email: data.get('email'),
-          reply_to: data.get('email'),
+          // name/email/title: variáveis do modelo "Contact Us" do EmailJS (o template em uso);
+          // from_name/from_email/reply_to: as do modelo antigo, para qualquer template funcionar
+          name,
+          email,
+          title: chosen,
+          from_name: name,
+          from_email: email,
+          reply_to: email,
           phone,
           service: chosen,
           page,
-          // O template atual só usa {{message}}: serviço e WhatsApp vão no topo dela também
-          message: `Serviço: ${chosen}\nWhatsApp: ${phone}\nPágina: ${page}\n\n${message}`,
+          // Tudo também no {{message}}, para o e-mail ficar completo mesmo se o template mudar
+          message: `Nome: ${name}\nE-mail: ${email}\nWhatsApp: ${phone}\nServiço: ${chosen}\nPágina: ${page}\n\n${message}`,
           raw_message: message,
           to_name: 'Pedro',
           to_email: EMAIL,
