@@ -1,8 +1,10 @@
-// Chrome (CriOS) e app do Google (GSA) no iOS travam a aba com os efeitos completos; o Safari e o
-// navegador do Instagram, no mesmo aparelho, não. Só neles o <html> ganha .gpu-lite (ver index.css).
+// No iPhone/iPad, Safari e Chrome travam a aba com os efeitos completos: as abas dividem o mesmo
+// processo de GPU, que já chega ocupado pelas outras. Os navegadores internos do Instagram e do app
+// do Google abrem o site num processo limpo e aguentam, então ficam com tudo. Os demais ganham
+// .gpu-lite no <html> (ver index.css).
 export function needsGpuLite(ua = navigator.userAgent) {
   const ios = /iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
-  return ios && /\b(CriOS|GSA)\//.test(ua);
+  return ios && !/\bInstagram\b|\bGSA\//.test(ua);
 }
 
 export function applyGpuLite() {

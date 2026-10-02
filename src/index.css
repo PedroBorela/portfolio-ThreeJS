@@ -150,10 +150,11 @@
   }
 }
 
-/* Modo leve (html.gpu-lite, ver src/lib/gpuLite.js): só no Chrome e no app do Google no iOS.
-   Neles a aba trava com tela preta: cada backdrop-filter e cada blur() grande vira uma camada de GPU,
-   e com ~90 vidros (36 na faixa da Stack, que anda sem parar), os orbs animados e a bolha 3D a aba
-   estoura a memória. Os demais navegadores (Safari, Instagram) seguem com todos os efeitos.
+/* Modo leve (html.gpu-lite, ver src/lib/gpuLite.js): Safari e Chrome no iPhone/iPad.
+   Neles a aba trava com tela preta e derruba o navegador: cada backdrop-filter e cada blur() grande
+   vira uma camada de GPU, e com ~90 vidros (36 na faixa da Stack, que anda sem parar), os orbs
+   animados e a bolha 3D o processo de GPU, dividido com as outras abas, estoura a memória.
+   Os navegadores internos do Instagram e do app do Google seguem com todos os efeitos.
    Sobre o fundo quase preto o desfoque mal aparece, então sai; os brilhos viram gradiente por máscara. */
 html.gpu-lite *,
 html.gpu-lite *::before,
