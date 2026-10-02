@@ -5,6 +5,8 @@ import { SphereGeometry } from 'three';
 import { gsap, useGSAP } from '../../lib/gsap';
 
 const RADIUS = 1.25;
+// HDR do preset "city" do drei servido pelo próprio site (o preset baixa do raw.githack.com)
+const ENV_MAP = '/hdri/potsdamer_platz_1k.hdr';
 
 // Normais por face acumuladas nos vértices (mesmo resultado do computeVertexNormals),
 // direto nos arrays: roda a cada frame, então evita a alocação/chamadas por vértice.
@@ -29,7 +31,7 @@ function updateNormals(pos, index, normal) {
   }
 }
 
-function Scene({ pop, pointer, animate, segments, onCompiled }) {
+function Scene({ pop, pointer, animate, segments, samples, onCompiled }) {
   const group = useRef(null);
   const blob = useRef(null);
   const ring = useRef(null);
@@ -112,7 +114,7 @@ function Scene({ pop, pointer, animate, segments, onCompiled }) {
 
   return (
     <>
-      <Environment preset="city" />
+      <Environment files={ENV_MAP} />
       <directionalLight color="#ffffff" intensity={2} position={[3, 4, 5]} />
       <pointLight color="#6366F1" intensity={30} distance={20} position={[-3, -1, 2]} />
       <pointLight color="#22C55E" intensity={16} distance={20} position={[3, -2, 1]} />
@@ -127,7 +129,7 @@ function Scene({ pop, pointer, animate, segments, onCompiled }) {
             transmissionSampler
             transparent
             opacity={0.72}
-            samples={6}
+            samples={samples}
             resolution={64}
             transmission={1}
             thickness={1.8}
@@ -168,15 +170,17 @@ function Scene({ pop, pointer, animate, segments, onCompiled }) {
 }
 
 // Bolha de vidro do hero. `revealed` dispara a entrada elástica junto com o intro.
-const GlassBlob = ({ revealed, reduceMotion = false }) => {
+// `onContextLost` avisa o Hero quando o navegador derruba o WebGL (comum no iOS sob pressão de memória).
+const GlassBlob = ({ revealed, reduceMotion = false, onContextLost }) => {
   const hostRef = useRef(null);
   const pointer = useRef({ x: 0, y: 0 });
   const pop = useMemo(() => ({ v: reduceMotion ? 1 : 0 }), [reduceMotion]);
   const [inView, setInView] = useState(true);
   const [compiled, setCompiled] = useState(false);
   const onCompiled = useCallback(() => setCompiled(true), []);
-  // Telas pequenas: malha 64×64 (4× menos vértices para deformar por frame) e DPR menor
-  const [small] = useState(() => window.innerWidth < 700);
+  // Celulares e tablets: malha 64×64 (4× menos vértices para deformar por frame), DPR e amostras
+  // da transmissão menores. No iPhone a GPU divide memória com a aba e o Safari derruba o contexto.
+  const [lowPower] = useState(() => window.innerWidth < 700 || window.matchMedia('(pointer: coarse)').matches);
 
   // Posição do mouse normalizada (-1..1); o canvas não recebe eventos.
   useEffect(() => {
@@ -208,16 +212,24 @@ const GlassBlob = ({ revealed, reduceMotion = false }) => {
     <div ref={hostRef} className="absolute inset-0">
       <Canvas
         frameloop={frameloop}
-        dpr={small ? [1, 1.5] : [1, 2]}
+        dpr={lowPower ? [1, 1.5] : [1, 2]}
         camera={{ fov: 32, position: [0, 0, 9], near: 0.1, far: 100 }}
         gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
         onCreated={({ gl }) => {
           gl.toneMappingExposure = 1.1;
+          gl.domElement.addEventListener('webglcontextlost', () => onContextLost?.(), { once: true });
         }}
         style={{ pointerEvents: 'none' }}
         aria-hidden="true"
       >
-        <Scene pop={pop} pointer={pointer} animate={!reduceMotion} segments={small ? 64 : 128} onCompiled={onCompiled} />
+        <Scene
+          pop={pop}
+          pointer={pointer}
+          animate={!reduceMotion}
+          segments={lowPower ? 64 : 128}
+          samples={lowPower ? 4 : 6}
+          onCompiled={onCompiled}
+        />
       </Canvas>
     </div>
   );

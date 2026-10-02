@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import emailjs from '@emailjs/browser';
+import { SERVICE_OPTIONS } from '../constants/portfolio';
 import { gsap, useGSAP, batchFade, MOTION } from '../lib/gsap';
 import MagneticButton from '../components/ui/MagneticButton';
 import SectionTitle from '../components/ui/SectionTitle';
@@ -22,28 +23,67 @@ const SOCIALS = [
   { label: 'Instagram', href: 'https://instagram.com/pedro.borela', icon: '/assets/instagram.svg', iconClass: 'h-1/2 w-1/2' },
 ];
 
+const FIELD_CLASS =
+  'min-h-14 w-full resize-none rounded-lg border border-pf-border bg-pf-surface px-5 py-3.5 text-lg text-pf-text-strong outline-none transition-colors placeholder:text-pf-muted focus:border-pf-muted';
+
 // Campo do formulário (PfField): label acima, input #0E0E10 com borda #1C1C21
-const Field = ({ label, name, multiline = false, ...props }) => {
+const Field = ({ label, name, multiline = false, optional = false, ...props }) => {
   const Tag = multiline ? 'textarea' : 'input';
   return (
-    <label className="flex flex-col gap-3">
-      <span className="text-lg text-pf-text">{label}</span>
-      <Tag
-        name={name}
-        className="min-h-14 w-full resize-none rounded-lg border border-pf-border bg-pf-surface px-5 py-3.5 text-lg text-pf-text-strong outline-none transition-colors placeholder:text-pf-muted focus:border-pf-muted"
-        {...props}
-      />
+    <label className="flex min-w-0 flex-col gap-3">
+      <span className="text-lg text-pf-text">
+        {label}
+        {optional && <span className="text-pf-muted"> (opcional)</span>}
+      </span>
+      <Tag name={name} className={FIELD_CLASS} {...props} />
     </label>
   );
 };
 
+const SelectField = ({ label, name, options, ...props }) => (
+  <label className="flex min-w-0 flex-col gap-3">
+    <span className="text-lg text-pf-text">{label}</span>
+    <span className="relative block">
+      <select name={name} className={`${FIELD_CLASS} cursor-pointer appearance-none pr-12 invalid:text-pf-muted`} {...props}>
+        <option value="" disabled>
+          Selecione uma opção
+        </option>
+        {options.map((option) => (
+          <option key={option.id} value={option.id}>
+            {option.name}
+          </option>
+        ))}
+      </select>
+      <img
+        src="/assets/arrow-up.png"
+        alt=""
+        aria-hidden="true"
+        className="pointer-events-none absolute right-5 top-1/2 h-2.5 w-2.5 -translate-y-1/2 rotate-[135deg] opacity-60"
+      />
+    </span>
+  </label>
+);
+
+const serviceName = (id) => SERVICE_OPTIONS.find((option) => option.id === id)?.name ?? 'Não informado';
+
 const SUBMIT_LABEL = { idle: 'Enviar mensagem', sending: 'Enviando...', sent: 'Mensagem enviada', error: 'Enviar mensagem' };
 
-const Contact = () => {
+// `service`/`onServiceChange` deixam a página de serviços pré-selecionar o serviço pelo card clicado.
+const Contact = ({
+  label = '06 · Contato',
+  titleLines = ['Vamos construir', 'algo juntos?'],
+  intro = 'Entre em contato para conversar sobre desenvolvimento de sites, sistemas, integrações ou outros projetos digitais.',
+  service: controlledService,
+  onServiceChange,
+  servicesLink = true,
+}) => {
   const rootRef = useRef(null);
   const formRef = useRef(null);
   const sentTimer = useRef(null);
   const [status, setStatus] = useState('idle');
+  const [localService, setLocalService] = useState('');
+  const service = controlledService ?? localService;
+  const setService = onServiceChange ?? setLocalService;
 
   useGSAP(
     () => {
@@ -63,6 +103,24 @@ const Contact = () => {
     setStatus('sending');
     clearTimeout(sentTimer.current);
 
+    const done = () => {
+      formRef.current.reset();
+      setService('');
+      setStatus('sent');
+      sentTimer.current = setTimeout(() => setStatus('idle'), 5000);
+    };
+
+    // Honeypot: o campo fica fora da tela, só robôs preenchem. Finge sucesso e não envia.
+    if (data.get('website')) {
+      done();
+      return;
+    }
+
+    const phone = String(data.get('phone') ?? '').trim() || 'Não informado';
+    const chosen = serviceName(data.get('service'));
+    const message = String(data.get('message') ?? '').trim();
+    const page = window.location.pathname;
+
     try {
       if (!EMAILJS.serviceId || !EMAILJS.templateId || !EMAILJS.publicKey) {
         throw new Error('EmailJS não configurado: defina as variáveis VITE_EMAILJS_* no .env');
@@ -73,15 +131,19 @@ const Contact = () => {
         {
           from_name: data.get('name'),
           from_email: data.get('email'),
-          message: data.get('message'),
+          reply_to: data.get('email'),
+          phone,
+          service: chosen,
+          page,
+          // O template atual só usa {{message}}: serviço e WhatsApp vão no topo dela também
+          message: `Serviço: ${chosen}\nWhatsApp: ${phone}\nPágina: ${page}\n\n${message}`,
+          raw_message: message,
           to_name: 'Pedro',
           to_email: EMAIL,
         },
         { publicKey: EMAILJS.publicKey },
       );
-      formRef.current.reset();
-      setStatus('sent');
-      sentTimer.current = setTimeout(() => setStatus('idle'), 5000);
+      done();
     } catch (error) {
       console.warn('Falha ao enviar a mensagem:', error);
       setStatus('error');
@@ -101,15 +163,22 @@ const Contact = () => {
       <div className="relative mx-auto grid max-w-site grid-cols-1 items-start gap-[clamp(48px,6vw,96px)] wide:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]">
         <div>
           <span data-fade="" className="mb-4 block text-sm text-pf-muted">
-            06 · Contato
+            {label}
           </span>
-          <SectionTitle
-            lines={['Vamos construir', 'algo juntos?']}
-            className="text-[clamp(48px,6.6vw,100px)] leading-[0.98] tracking-[-0.045em]"
-          />
+          <SectionTitle lines={titleLines} className="text-[clamp(48px,6.6vw,100px)] leading-[0.98] tracking-[-0.045em]" />
           <p data-fade="" className="mb-0 mt-8 max-w-[460px] text-lg leading-[1.6] text-pf-text">
-            Entre em contato para conversar sobre desenvolvimento de sites, sistemas, integrações ou outros projetos digitais.
+            {intro}
           </p>
+          {servicesLink && (
+            <a
+              href="/servicos"
+              data-fade=""
+              className="mt-6 flex w-fit items-center gap-2.5 border-b border-pf-muted-2 pb-1 text-base text-pf-text-strong transition-colors hover:border-white hover:text-white"
+            >
+              Ver serviços e o que está incluso
+              <img src="/assets/arrow-up.png" alt="" className="h-2.5 w-2.5" />
+            </a>
+          )}
           <div data-fade="" className="mt-10 flex flex-col gap-6">
             <a
               href={`mailto:${EMAIL}`}
@@ -142,8 +211,32 @@ const Contact = () => {
           className="glass relative flex flex-col gap-7 p-[clamp(24px,3vw,40px)] backdrop-blur-[24px] backdrop-saturate-[1.4]"
         >
           <Field label="Nome" name="name" type="text" placeholder="Ex.: Maria Silva" autoComplete="name" required />
-          <Field label="E-mail" name="email" type="email" placeholder="Ex.: maria@empresa.com.br" autoComplete="email" required />
-          <Field label="Mensagem" name="message" multiline rows={5} placeholder="Descreva brevemente o seu projeto." required />
+          <div className="grid grid-cols-1 gap-7 wide:grid-cols-2">
+            <Field label="E-mail" name="email" type="email" placeholder="maria@empresa.com" autoComplete="email" required />
+            <Field label="WhatsApp" optional name="phone" type="tel" inputMode="tel" placeholder="(33) 99999-9999" autoComplete="tel" />
+          </div>
+          <SelectField
+            label="Serviço"
+            name="service"
+            options={SERVICE_OPTIONS}
+            value={service}
+            onChange={(e) => setService(e.target.value)}
+            required
+          />
+          <Field
+            label="Mensagem"
+            name="message"
+            multiline
+            rows={5}
+            placeholder="Conte um pouco sobre o projeto, o objetivo e o prazo."
+            required
+          />
+          <div aria-hidden="true" className="absolute -left-[9999px] h-px w-px overflow-hidden">
+            <label>
+              Site
+              <input type="text" name="website" tabIndex={-1} autoComplete="off" />
+            </label>
+          </div>
           <MagneticButton
             as="button"
             type="submit"

@@ -1,1 +1,17 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#62B0FF"/><stop offset="1" stop-color="#8E7AFE"/></linearGradient></defs><rect width="64" height="64" rx="16" fill="#0B0B14"/><path d="M20 46V18h13.5c6.6 0 10.8 3.9 10.8 10s-4.2 10.1-10.8 10.1H27V46h-7Zm7-14.2h5.6c2.6 0 4.2-1.4 4.2-3.8s-1.6-3.8-4.2-3.8H27v7.6Z" fill="url(#g)"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="silver" x1="0" y1="0" x2="1" y2="0" gradientUnits="objectBoundingBox">
+      <stop offset="0.6" stop-color="#BEC1CF"/>
+      <stop offset="0.6" stop-color="#D5D8EA"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.15" cy="0.05" r="0.9">
+      <stop offset="0" stop-color="#6366F1" stop-opacity="0.32"/>
+      <stop offset="1" stop-color="#6366F1" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="#010103"/>
+  <rect width="64" height="64" rx="14" fill="url(#glow)"/>
+  <rect x="0.75" y="0.75" width="62.5" height="62.5" rx="13.25" fill="none" stroke="#FFFFFF" stroke-opacity="0.12" stroke-width="1.5"/>
+  <path d="M16.06 36.7H11.81V45.5H6.09V18.5H16.06Q21.06 18.5 23.9 20.83Q26.74 23.16 26.74 27.49Q26.74 31.85 23.88 34.28Q21.02 36.7 16.06 36.7ZM16.02 23.31H11.81V31.89H16.02Q18.42 31.89 19.74 30.72Q21.06 29.56 21.06 27.53Q21.06 25.53 19.74 24.42Q18.42 23.31 16.02 23.31Z M49.11 37.57Q49.11 41.29 46.53 43.39Q43.96 45.5 39.48 45.5H28.92V18.5H39.07Q43.36 18.5 45.8 20.38Q48.24 22.26 48.24 25.68Q48.24 29.44 44.45 31.4Q49.11 33.02 49.11 37.57ZM38.62 23.01H34.11V29.29H38.62Q40.69 29.29 41.76 28.47Q42.83 27.64 42.83 26.13Q42.83 24.67 41.76 23.84Q40.69 23.01 38.62 23.01ZM39.03 33.84H34.11V40.99H39.03Q41.33 40.99 42.53 40.03Q43.73 39.07 43.73 37.34Q43.73 35.72 42.53 34.78Q41.33 33.84 39.03 33.84Z" fill="url(#silver)"/>
+  <circle cx="54.61" cy="42.20" r="3.3" fill="#22C55E"/>
+</svg>
