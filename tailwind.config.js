@@ -3,28 +3,38 @@ export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
+      // Breakpoint único do protótipo: "wide" é o layout de desktop, o resto é "narrow".
+      screens: {
+        wide: { raw: '(min-width: 861px) and (min-height: 720px)' },
+      },
       fontFamily: {
-        generalsans: ['General Sans', 'sans-serif'],
+        sans: ['General Sans', 'sans-serif'],
       },
       colors: {
-        black: {
-          DEFAULT: '#000',
-          100: '#010103',
-          200: '#0E0E10',
-          300: '#1C1C21',
-          500: '#3A3A49',
-          600: '#1A1A1A',
-        },
-        white: {
-          DEFAULT: '#FFFFFF',
-          800: '#E4E4E6',
-          700: '#D6D9E9',
-          600: '#AFB0B6',
-          500: '#62646C',
+        pf: {
+          black: '#010103',
+          surface: '#0E0E10',
+          border: '#1C1C21',
+          'muted-2': '#3A3A49',
+          muted: '#62646C',
+          text: '#AFB0B6',
+          'text-strong': '#E4E4E6',
+          silver: '#D6D9E9',
+          green: '#22C55E',
+          ping: '#4ADE80',
+          logo: '#1A1A1A',
+          indigo: '#6366F1',
+          emerald: '#10B981',
         },
       },
-      backgroundImage: {
-        terminal: "url('/assets/terminal.png')",
+      spacing: {
+        gutter: 'clamp(20px,4vw,40px)',
+        section: 'clamp(112px,14vw,176px)',
+        'section-end': 'clamp(80px,10vw,120px)',
+        card: 'clamp(22px,2.6vw,36px)',
+      },
+      maxWidth: {
+        site: '1280px',
       },
     },
   },

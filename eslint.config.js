@@ -2,10 +2,9 @@ import js from '@eslint/js'
 import globals from 'globals'
 import reactHooks from 'eslint-plugin-react-hooks'
 import reactRefresh from 'eslint-plugin-react-refresh'
-import { ReactThreeFiber } from '@react-three/fiber'
 
 export default [
-  { ignores: ['dist', 'public/draco/**'] },
+  { ignores: ['dist', 'public/**', 'design_handoff_portfolio_v2/**'] },
   {
     files: ['**/*.{js,jsx}'],
     languageOptions: {
@@ -20,7 +19,6 @@ export default [
     plugins: {
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
-      '@react-three': ReactThreeFiber
     },
     rules: {
       ...js.configs.recommended.rules,
