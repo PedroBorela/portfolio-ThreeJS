@@ -46,6 +46,10 @@ const Footer = () => {
               {EMAIL}
             </a>
             <span aria-hidden="true">|</span>
+            <a href="/servicos" className="text-pf-text transition-colors hover:text-white">
+              Serviços
+            </a>
+            <span aria-hidden="true">|</span>
             <span>
               Manhuaçu, MG · <span className="tabular-nums">{time}</span>
             </span>

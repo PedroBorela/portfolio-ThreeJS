@@ -20,30 +20,35 @@ export const T = {
   figma: { name: 'Figma', path: '/assets/tech/figma.svg' },
   html: { name: 'HTML5', path: '/assets/tech/html5.svg' },
   css: { name: 'CSS', path: '/assets/tech/css.svg' },
+  astro: { name: 'Astro', path: '/assets/tech/astro.svg' },
 };
 
+// Links com caminho levam à home (/#about) ou à página de serviços; "#contact" fica na página atual,
+// porque as duas têm formulário.
 export const NAV = [
-  { name: 'Sobre', href: '#about' },
-  { name: 'Projetos', href: '#projects' },
-  { name: 'Stack', href: '#stack' },
-  { name: 'Experiência', href: '#work' },
+  { name: 'Sobre', href: '/#about' },
+  { name: 'Projetos', href: '/#projects' },
+  { name: 'Serviços', href: '/servicos' },
+  { name: 'Stack', href: '/#stack' },
+  { name: 'Experiência', href: '/#work' },
   { name: 'Contato', href: '#contact' },
 ];
 
 export const FEATURED = [
-  { n: '01', kind: 'Landing page · TikTok Shop', title: 'Trilha Fashion', desc: 'Landing page do programa oficial de aceleração do TikTok Shop para sellers de moda.', href: 'https://trilhafashion.com.br', domain: 'trilhafashion.com.br', img: '/textures/project/trilhafashion.png', accent: '#FE2C55', tags: [T.next, T.react, T.tailwind, T.vercel] },
-  { n: '02', kind: 'Sistema interno · Origenow', title: 'Consulta em Massa TTS', desc: 'Sistema de pesquisa e analytics para marketplaces, usado pelo time de inteligência comercial da Origenow.', href: 'https://analytics.origenow.com.br', domain: 'analytics.origenow.com.br', img: '/textures/project/consulta-tts-home.webp', accent: '#6366F1', tags: [T.next, T.node, T.postgres, T.tailwind] },
-  { n: '03', kind: 'Institucional e catálogo', title: 'A Constrular', desc: 'Site institucional e catálogo de uma distribuidora de materiais de construção de Manhuaçu, com seis unidades na região.', href: 'https://aconstrular.com.br', domain: 'aconstrular.com.br', img: '/textures/project/constrular.png', accent: '#F59E0B', tags: [T.next, T.react, T.tailwind, T.vercel] },
-  { n: '04', kind: 'Contabilidade para e-commerce', title: 'ContMinas', desc: 'Site de uma contabilidade especializada em vendedores da Amazon e do Mercado Livre, com SEO técnico e performance.', href: 'https://soucontminas.com.br', domain: 'soucontminas.com.br', img: '/textures/project/contminas.png', accent: '#10B981', tags: [T.next, T.react, T.tailwind, T.vercel] },
-  { n: '05', kind: 'Saúde e bem-estar', title: 'Natureza em Cura', desc: 'Site de um espaço de yoga, meditação, psicologia e terapias integrativas, com agendamento de atendimentos.', href: 'https://www.naturezaemcura.com.br', domain: 'naturezaemcura.com.br', img: '/textures/project/naturezaemcura.webp', accent: '#65A30D', tags: [T.next, T.react, T.tailwind, T.vercel] },
-  { n: '06', kind: 'Campanha · Deputado Federal RJ', title: 'André Português 1080', desc: 'Site de campanha com propostas, notícias, agenda, vídeos e recursos de acessibilidade como VLibras.', href: 'https://andreportugues.org', domain: 'andreportugues.org', img: '/textures/project/andreportugues.webp', accent: '#2563EB', tags: [T.html, T.css, T.js, T.tailwind] },
+  { n: '01', kind: 'Landing page · TikTok Shop', title: 'Trilha Fashion', desc: 'Landing page do programa oficial de aceleração do TikTok Shop para sellers de moda.', href: 'https://trilhafashion.com.br', domain: 'trilhafashion.com.br', img: '/textures/project/trilhafashion.webp', accent: '#FE2C55', tags: [T.next, T.react, T.tailwind, T.vercel] },
+  { n: '02', kind: 'Landing page premium · Música e mentoria', title: 'Carol Santosha', desc: 'Landing page da cantora e mentora Mama Carol Santosha, com tambor gerado ao vivo no navegador, quiz da voz e a jornada da mentoria Voz das Onças.', href: 'https://lpcarolsanthosa-production.up.railway.app/', domain: 'lpcarolsanthosa-production.up.railway.app', img: '/textures/project/carolsantosha.webp', accent: '#D4AF37', tags: [T.astro, T.gsap, T.tailwind, T.js] },
+  { n: '03', kind: 'Sistema interno · Origenow', title: 'Consulta em Massa TTS', desc: 'Sistema de pesquisa e analytics para marketplaces, usado pelo time de inteligência comercial da Origenow.', href: 'https://analytics.origenow.com.br', domain: 'analytics.origenow.com.br', img: '/textures/project/consulta-tts-home.webp', accent: '#6366F1', tags: [T.next, T.node, T.postgres, T.tailwind] },
+  { n: '04', kind: 'Institucional e catálogo', title: 'A Constrular', desc: 'Site institucional e catálogo de uma distribuidora de materiais de construção de Manhuaçu, com seis unidades na região.', href: 'https://aconstrular.com.br', domain: 'aconstrular.com.br', img: '/textures/project/constrular.png', accent: '#F59E0B', tags: [T.next, T.react, T.tailwind, T.vercel] },
+  { n: '05', kind: 'Contabilidade para e-commerce', title: 'ContMinas', desc: 'Site de uma contabilidade especializada em vendedores da Amazon e do Mercado Livre, com SEO técnico e performance.', href: 'https://soucontminas.com.br', domain: 'soucontminas.com.br', img: '/textures/project/contminas.png', accent: '#10B981', tags: [T.next, T.react, T.tailwind, T.vercel] },
+  { n: '06', kind: 'Saúde e bem-estar', title: 'Natureza em Cura', desc: 'Site de um espaço de yoga, meditação, psicologia e terapias integrativas, com agendamento de atendimentos.', href: 'https://www.naturezaemcura.com.br', domain: 'naturezaemcura.com.br', img: '/textures/project/naturezaemcura.webp', accent: '#65A30D', tags: [T.next, T.react, T.tailwind, T.vercel] },
+  { n: '07', kind: 'Campanha · Deputado Federal RJ', title: 'André Português 1080', desc: 'Site de campanha com propostas, notícias, agenda, vídeos e recursos de acessibilidade como VLibras.', href: 'https://andreportugues.org', domain: 'andreportugues.org', img: '/textures/project/andreportugues.webp', accent: '#2563EB', tags: [T.html, T.css, T.js, T.tailwind] },
 ];
 
 export const OTHERS = [
-  { n: '07', title: 'LisoControl', kind: 'Finanças para universitários', href: 'https://projetointerdisciplinar-production.up.railway.app/', img: '/textures/project/lisocontrol-site.png', tags: [T.react, T.ts, T.supabase, T.vite] },
-  { n: '08', title: 'Memória Sineira MG', kind: 'Acervo digital · UFV', href: 'https://memoria-sineira-mg-production.up.railway.app/', img: '/textures/project/memoria-sineira-site.png', tags: [T.next, T.ts, T.cloudflare, T.tailwind] },
-  { n: '09', title: 'CoffeaWiki', kind: 'Catálogo de cultivares de café', href: 'https://coffea-wiki.vercel.app', img: '/textures/project/coffeawiki.png', tags: [T.react, T.vite, T.tailwind, T.js] },
-  { n: '10', title: 'GSAP Motion Lab', kind: 'Laboratório de animações', href: 'https://curso-gsap.vercel.app/', img: '/textures/project/gsap-lab-site.png', tags: [T.gsap, T.js, T.three, T.vite] },
+  { n: '08', title: 'LisoControl', kind: 'Finanças para universitários', href: 'https://projetointerdisciplinar-production.up.railway.app/', img: '/textures/project/lisocontrol-site.png', tags: [T.react, T.ts, T.supabase, T.vite] },
+  { n: '09', title: 'Memória Sineira MG', kind: 'Acervo digital · UFV', href: 'https://memoria-sineira-mg-production.up.railway.app/', img: '/textures/project/memoria-sineira-site.png', tags: [T.next, T.ts, T.cloudflare, T.tailwind] },
+  { n: '10', title: 'CoffeaWiki', kind: 'Catálogo de cultivares de café', href: 'https://coffea-wiki.vercel.app', img: '/textures/project/coffeawiki.png', tags: [T.react, T.vite, T.tailwind, T.js] },
+  { n: '11', title: 'GSAP Motion Lab', kind: 'Laboratório de animações', href: 'https://curso-gsap.vercel.app/', img: '/textures/project/gsap-lab-site.png', tags: [T.gsap, T.js, T.three, T.vite] },
 ];
 
 export const GROUPS = [
@@ -61,3 +66,63 @@ export const EXPS = [
 export const MARQUEE = ['Sistemas internos', 'Integrações e APIs', 'Sites e landing pages', 'Dados e analytics', 'Interfaces 3D', 'E-commerce e marketplaces'];
 export const MANIFESTO = 'Sou desenvolvedor full-stack em Manhuaçu, MG. Na Origenow, construo sistemas internos, integrações de APIs e webhooks, e sites para e-commerce e marketplaces. Do banco de dados à última micro-interação.'.split(' ');
 
+
+// Página /servicos. `cases` aponta para títulos de FEATURED.
+export const SERVICES = [
+  {
+    id: 'lp-basica',
+    n: '01',
+    name: 'Landing page básica',
+    tagline: 'Uma página clara, rápida e bem-feita para começar a vender online.',
+    idealFor: 'Profissionais liberais, negócios locais e lançamentos simples.',
+    includes: [
+      'Página única com até 6 seções',
+      'Layout responsivo, pensado primeiro para o celular',
+      'Botão de WhatsApp e formulário de contato',
+      'SEO básico: título, descrição e prévia ao compartilhar',
+      'Publicação no seu domínio, com HTTPS',
+    ],
+    cases: [],
+  },
+  {
+    id: 'lp-premium',
+    n: '02',
+    name: 'Landing page premium',
+    tagline: 'Design exclusivo e uma experiência que faz a sua marca ser lembrada.',
+    idealFor: 'Lançamentos, infoprodutos, artistas e marcas que vendem pela experiência.',
+    includes: [
+      'Design criado do zero para a sua marca',
+      'Animações e interações sob medida (GSAP, 3D, som)',
+      'Estrutura de página pensada para conversão',
+      'Integrações: analytics, pixel, CRM, checkout e WhatsApp',
+      'Performance e SEO técnico',
+    ],
+    cases: ['Carol Santosha', 'Trilha Fashion'],
+    featured: true,
+  },
+  {
+    id: 'sistema',
+    n: '03',
+    name: 'Sistema sob medida',
+    tagline: 'Para a operação que cresceu além da planilha.',
+    idealFor: 'Empresas que precisam organizar pedidos, estoque e dados, ou integrar plataformas.',
+    includes: [
+      'Painel web com login e níveis de acesso',
+      'Banco de dados PostgreSQL, relatórios e exportações',
+      'Integrações de APIs e webhooks (marketplaces, ERPs, pagamentos)',
+      'Automação de tarefas repetitivas',
+      'Deploy, monitoramento e suporte depois da entrega',
+    ],
+    cases: ['Consulta em Massa TTS'],
+  },
+];
+
+// Opções do campo "Serviço" do formulário
+export const SERVICE_OPTIONS = [...SERVICES.map(({ id, name }) => ({ id, name })), { id: 'outro', name: 'Outro projeto' }];
+
+export const PROCESS = [
+  { n: '01', title: 'Conversa', desc: 'Você me conta o objetivo, o público e o prazo. Pode ser pelo formulário, por WhatsApp ou numa chamada.' },
+  { n: '02', title: 'Proposta', desc: 'Envio por escrito o escopo, o prazo e o investimento, para você decidir com tudo claro.' },
+  { n: '03', title: 'Desenvolvimento', desc: 'Construo com entregas parciais, para você acompanhar e ajustar no caminho.' },
+  { n: '04', title: 'Entrega', desc: 'Publico no seu domínio, mostro como tudo funciona e sigo disponível para ajustes.' },
+];

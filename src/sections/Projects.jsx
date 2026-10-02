@@ -30,8 +30,8 @@ const ProjectCard = ({ project, index }) => {
           <span className="h-2.5 w-2.5 rounded-full bg-pf-muted-2" />
           <span className="h-2.5 w-2.5 rounded-full bg-pf-muted-2" />
           <span className="h-2.5 w-2.5 rounded-full bg-pf-muted-2" />
-          <span className="flex flex-1 justify-center">
-            <span className="rounded-full border border-white/[0.06] bg-white/5 px-3.5 py-[5px] text-xs text-pf-text">
+          <span className="flex min-w-0 flex-1 justify-center">
+            <span className="truncate rounded-full border border-white/[0.06] bg-white/5 px-3.5 py-[5px] text-xs text-pf-text">
               {project.domain}
             </span>
           </span>

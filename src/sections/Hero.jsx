@@ -126,7 +126,15 @@ const Hero = ({ revealed, reduceMotion }) => {
             Desenvolvimento full-stack, dados e interfaces. Na <span className="text-white">Origenow</span>, construo sistemas
             internos, integrações de APIs e sites para e-commerce e marketplaces.
           </p>
-          <div data-hero-fade="" className="flex items-center gap-3">
+          <div data-hero-fade="" className="flex flex-wrap items-center gap-3">
+            <MagneticButton
+              href="/servicos"
+              strength={0.3}
+              className="flex items-center gap-3 rounded-md bg-pf-silver px-6 py-4 text-base font-medium text-pf-black transition-colors hover:bg-white"
+            >
+              Conheça os serviços
+              <img src="/assets/arrow-up.png" alt="" className="h-3 w-3 brightness-0" />
+            </MagneticButton>
             <MagneticButton
               href="#projects"
               strength={0.3}

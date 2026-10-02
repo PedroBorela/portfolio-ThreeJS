@@ -9,7 +9,7 @@ import Ping from '../components/ui/Ping';
 
 const EMAIL = 'pborela2014@gmail.com';
 
-const Navbar = () => {
+const Navbar = ({ path }) => {
   const rootRef = useRef(null);
   const navRef = useRef(null);
   const bgRef = useRef(null);
@@ -111,7 +111,7 @@ const Navbar = () => {
         />
         <div className="relative mx-auto grid max-w-site grid-cols-[minmax(0,1fr)_auto] items-center gap-4 wide:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)]">
           <MagneticButton
-            href="#home"
+            href="/#home"
             strength={0.25}
             onClick={closeMenu}
             className="flex items-center gap-2.5 justify-self-start whitespace-nowrap text-xl font-bold text-[#A3A3A3] transition-colors hover:text-white"
@@ -127,9 +127,10 @@ const Navbar = () => {
               <a
                 key={link.href}
                 href={link.href}
+                aria-current={link.href === path ? 'page' : undefined}
                 onMouseEnter={(e) => roll(e, -100)}
                 onMouseLeave={(e) => roll(e, 0)}
-                className="block rounded-full px-4 py-2 text-[15px] text-[#A3A3A3] transition-colors hover:bg-white/[0.06]"
+                className="block rounded-full px-4 py-2 text-[15px] text-[#A3A3A3] transition-colors hover:bg-white/[0.06] aria-[current=page]:bg-white/[0.06] aria-[current=page]:text-white"
               >
                 <span className="relative block h-[1.25em] overflow-hidden leading-[1.25em]">
                   <span data-roll="" className="block">
@@ -181,7 +182,7 @@ const Navbar = () => {
           <ul className="m-0 flex list-none flex-col gap-1 p-0">
             {NAV.map((link, i) => (
               <li key={link.href} className="overflow-hidden border-b border-pf-border">
-                <a href={link.href} onClick={closeMenu} className="block py-3">
+                <a href={link.href} onClick={closeMenu} aria-current={link.href === path ? 'page' : undefined} className="block py-3">
                   <span data-menu-line="" className="flex items-baseline gap-4">
                     <span className="w-6 shrink-0 text-sm text-pf-muted tabular-nums">{String(i + 1).padStart(2, '0')}</span>
                     <span className="text-silver text-[clamp(40px,11vw,64px)] font-semibold leading-[1.05] tracking-[-0.04em]">
