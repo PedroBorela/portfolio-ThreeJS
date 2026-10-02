@@ -15,6 +15,7 @@ const ProjectCard = ({ project, index }) => {
     <article data-card="" className="project-card relative flex-none">
       <div
         aria-hidden="true"
+        data-glow=""
         className="pointer-events-none absolute inset-x-[12%] top-[18%] h-[55%] opacity-20 blur-[90px]"
         style={{ background: project.accent }}
       />

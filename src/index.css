@@ -149,3 +149,32 @@
     overflow: hidden;
   }
 }
+
+/* Modo leve (html.gpu-lite, ver src/lib/gpuLite.js): só no Chrome e no app do Google no iOS.
+   Neles a aba trava com tela preta: cada backdrop-filter e cada blur() grande vira uma camada de GPU,
+   e com ~90 vidros (36 na faixa da Stack, que anda sem parar), os orbs animados e a bolha 3D a aba
+   estoura a memória. Os demais navegadores (Safari, Instagram) seguem com todos os efeitos.
+   Sobre o fundo quase preto o desfoque mal aparece, então sai; os brilhos viram gradiente por máscara. */
+html.gpu-lite *,
+html.gpu-lite *::before,
+html.gpu-lite *::after {
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+html.gpu-lite [data-orb],
+html.gpu-lite [data-glow] {
+  filter: none !important;
+  -webkit-mask-image: radial-gradient(closest-side, rgba(0, 0, 0, var(--glow-peak)), transparent);
+  mask-image: radial-gradient(closest-side, rgba(0, 0, 0, var(--glow-peak)), transparent);
+}
+
+html.gpu-lite [data-orb] {
+  --glow-peak: 0.35;
+  scale: 2; /* o GSAP incorpora esse scale ao transform quando anima o orb */
+}
+
+html.gpu-lite [data-glow] {
+  --glow-peak: 0.6;
+  scale: 1.6;
+}
