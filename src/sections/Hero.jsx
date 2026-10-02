@@ -25,7 +25,8 @@ const Hero = ({ revealed, reduceMotion }) => {
   const introRef = useRef(null);
   const waveRef = useRef(null);
   const scrollLineRef = useRef(null);
-  const [blob3d, setBlob3d] = useState(supportsWebGL2);
+  // ?sem3d desliga a bolha 3D: isola o WebGL ao investigar travamentos em um aparelho específico
+  const [blob3d, setBlob3d] = useState(() => supportsWebGL2() && !new URLSearchParams(window.location.search).has('sem3d'));
   const onContextLost = useCallback(() => setBlob3d(false), []);
 
   const { contextSafe } = useGSAP(
