@@ -1,9 +1,19 @@
-import { lazy, Suspense, useEffect, useRef } from 'react';
+import { lazy, Suspense, useCallback, useEffect, useRef, useState } from 'react';
 import { gsap, useGSAP, letterBounce, MOTION } from '../lib/gsap';
+import { supportsWebGL2 } from '../lib/webgl';
+import ErrorBoundary from '../components/ui/ErrorBoundary';
 import MagneticButton from '../components/ui/MagneticButton';
 import Ping from '../components/ui/Ping';
 
 const GlassBlob = lazy(() => import('../components/three/GlassBlob'));
+
+// Bolha estática em CSS: entra quando não há WebGL2, o chunk 3D falha ou o contexto cai
+const BlobFallback = () => (
+  <div
+    aria-hidden="true"
+    className="absolute left-1/2 top-1/2 aspect-square h-[clamp(160px,min(40svh,62vw),440px)] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/[0.08] opacity-80 shadow-[inset_0_1px_0_rgba(255,255,255,0.12)] [background:radial-gradient(circle_at_32%_28%,rgba(255,255,255,0.28),transparent_34%),radial-gradient(circle_at_70%_78%,rgba(99,102,241,0.32),transparent_46%),radial-gradient(circle_at_24%_80%,rgba(34,197,94,0.16),transparent_40%),rgba(214,216,234,0.05)]"
+  />
+);
 
 const NAME = [
   { line: '1', letters: 'Pedro', className: '' },
@@ -15,6 +25,8 @@ const Hero = ({ revealed, reduceMotion }) => {
   const introRef = useRef(null);
   const waveRef = useRef(null);
   const scrollLineRef = useRef(null);
+  const [blob3d, setBlob3d] = useState(supportsWebGL2);
+  const onContextLost = useCallback(() => setBlob3d(false), []);
 
   const { contextSafe } = useGSAP(
     () => {
@@ -65,9 +77,15 @@ const Hero = ({ revealed, reduceMotion }) => {
   return (
     <section ref={rootRef} id="home" className="relative flex min-h-[100svh] px-gutter pb-8 pt-[112px]">
       <div className="pointer-events-none absolute inset-0 z-[1]">
-        <Suspense fallback={null}>
-          <GlassBlob revealed={revealed} reduceMotion={reduceMotion} />
-        </Suspense>
+        {blob3d ? (
+          <ErrorBoundary name="GlassBlob" fallback={<BlobFallback />}>
+            <Suspense fallback={null}>
+              <GlassBlob revealed={revealed} reduceMotion={reduceMotion} onContextLost={onContextLost} />
+            </Suspense>
+          </ErrorBoundary>
+        ) : (
+          <BlobFallback />
+        )}
       </div>
 
       <div className="relative mx-auto flex min-h-[calc(100svh-144px)] w-full max-w-site flex-col justify-between gap-10">
