@@ -42,9 +42,11 @@ O formulário de contato envia pelo EmailJS. As chaves ficam em `.env`, que est�
 | `VITE_EMAILJS_TEMPLATE_ID` | EmailJS → Email Templates |
 | `VITE_EMAILJS_PUBLIC_KEY` | EmailJS → Account → Public Key |
 
-O template recebe `from_name`, `from_email`, `reply_to`, `phone`, `service`, `page`,
-`message`, `raw_message`, `to_name` e `to_email`. O `message` já traz serviço, WhatsApp e
-página no topo, então um template que só usa `{{message}}` continua completo. Sem as
+O template recebe `name`, `email` e `title` (as variáveis do modelo "Contact Us" do
+EmailJS, que é o template em uso), além de `from_name`, `from_email`, `reply_to`, `phone`,
+`service`, `page`, `message`, `raw_message`, `to_name` e `to_email`. O `message` já traz
+nome, e-mail, WhatsApp, serviço e página no topo, então um template que só usa
+`{{message}}` continua completo. Sem as
 variáveis, o site funciona normalmente e o formulário mostra a mensagem de erro ao enviar.
 O campo escondido `website` é um honeypot: se vier preenchido, o envio é ignorado.
 
